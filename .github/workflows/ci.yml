@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.12]
+
+    steps:
+      # Vérification du dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configuration de Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Installation des dépendances avec npm clean-install
+      - name: Install dependencies
+        run: npm clean-install
+
+      # Audit de sécurité
+      - name: Audit
+        run: npm audit
+
+      # Vérification de la signature des audits
+      - name: Audit Signature
+        run: npm audit signature
+
+      # Linter
+      - name: Lint
+        run: npm run lint
+
+      # Tests
+      - name: Test
+        run: npm run test:ci
+
+      # Build
+      - name: Build
+        run: npm run build
