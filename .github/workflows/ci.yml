@@ -34,7 +34,7 @@ jobs:
 
       # Vérification de la signature des audits
       - name: Audit Signature
-        run: npm audit signature
+        run: npm audit signatures
 
       # Linter
       - name: Lint
