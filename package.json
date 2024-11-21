@@ -5,12 +5,16 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:production": "ng build --configuration=production",
     "build:staging": "ng build --configuration=staging",
+    "build:development": "ng build --configuration=development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
-    "deploy:staging": "npm run build:staging && firebase deploy"
+    "deploy:production": "npm run build:production && firebase use production && firebase deploy",
+    "deploy:staging": "npm run build:staging && firebase use staging && firebase deploy",
+    "deploy:development": "npm run build:development && firebase use development && firebase deploy"
   },
   "private": true,
   "dependencies": {
