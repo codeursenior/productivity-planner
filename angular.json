@@ -59,7 +59,7 @@
                 }
               ]
             },
-            "dev": {
+            "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
