@@ -49,11 +49,11 @@ jobs:
         run: |
           mkdir environments
           echo "Creating development environment file..."
-          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d >> environments/environment.prod.ts
+          echo "${{ secrets.FIREBASE_CONFIG }}" >> environments/environment.prod.ts
           echo -n "export const firebaseConfig = " > environments/environment.prod.ts
           echo "Creating production environment file..."
           echo -n "export const firebaseConfig = " > environments/environment.ts
-          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d >> environments/environment.ts
+          echo "${{ secrets.FIREBASE_CONFIG }}" >> environments/environment.ts
 
       # Build
       - name: Build
