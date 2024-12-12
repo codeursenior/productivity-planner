@@ -10,6 +10,7 @@
     "build:development": "ng build --configuration=development",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "deploy:production": "npm run build:production && firebase use production && firebase deploy",
