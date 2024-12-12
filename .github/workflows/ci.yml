@@ -47,6 +47,7 @@ jobs:
       # Set environment variables
       - name: Create environment files
         run: |
+          mkdir environments
           echo "Creating production environment file..."
           echo -n "export const firebaseConfig = " > environments/environment.ts
           echo "${{ secrets.FIREBASE_CONFIG }}" >> environments/environment.ts
