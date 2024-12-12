@@ -41,8 +41,8 @@ jobs:
         run: npm run lint
 
       # Tests
-      # - name: Test
-      #   run: npm run test:ci
+      - name: Test
+        run: npm run test:ci
 
       # Set environment variables
       - name: Create environment files
