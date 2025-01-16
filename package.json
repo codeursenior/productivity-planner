@@ -11,6 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch --onlyChanged --verbose",
     "lint": "ng lint",
     "deploy:production": "npm run build:production && firebase use production && firebase deploy",
     "deploy:staging": "npm run build:staging && firebase use staging && firebase deploy",
