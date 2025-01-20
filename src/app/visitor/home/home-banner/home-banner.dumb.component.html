@@ -1,3 +1,5 @@
 <h1 data-testid="banner-title">{{ title() }}</h1>
-<p>{{ description() }}</p>
-<button type="button" (click)="clicked.emit()">{{ button() }}</button>
+<p data-testid="banner-description">{{ description() }}</p>
+<button data-testid="banner-button" type="button" (click)="clicked.emit()">
+  {{ button() }}
+</button>
