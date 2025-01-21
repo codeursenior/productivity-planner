@@ -1,13 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HomeBannerDumbComponent } from './home-banner/home-banner.dumb.component';
+import { HomepageFeatureCardListDumbComponent } from './homepage-feature-card-list/homepage-feature-card-list.dumb.component';
 
 @Component({
   standalone: true,
-  imports: [HomeBannerDumbComponent],
+  imports: [HomeBannerDumbComponent, HomepageFeatureCardListDumbComponent],
   templateUrl: './home.page.component.html',
   styleUrl: './home.page.component.scss',
 })
 export class HomePageComponent {
+  featureCardList = signal([
+    {
+      name: 'Planifier sa semaine',
+      icon: 'calendar',
+      description: 'Visibilité sur les 7 prochains jours',
+    },
+    {
+      name: 'Atteindre ses objectifs',
+      icon: 'Description 2',
+      description: 'Priorisation des tâches',
+    },
+    {
+      name: 'Analyser sa productivité',
+      icon: 'Description 3',
+      description: 'Visualiser le travail accomplis',
+    },
+  ]);
+
   onBannerClicked() {
     console.log('Banner clicked');
   }
