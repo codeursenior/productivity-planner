@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FeatureCardList } from './homepage-feature-card-list.type';
+import { FeatureCardList } from './homepage-feature-card-list.interface';
 
 @Component({
   selector: 'app-homepage-feature-card-list',
