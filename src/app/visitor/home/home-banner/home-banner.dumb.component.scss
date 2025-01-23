@@ -1,4 +1,4 @@
-.banner-container {
+:host {
   background-image: url("/images/homepage-banner.webp");
   background-size: cover;
   background-position: bottom;
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-.banner-container::before {
+:host::before {
   content: ""; /* Superposition sombre */
   position: absolute;
   top: 0;
@@ -18,7 +18,7 @@
   z-index: 1;
 }
 
-.banner-container > * {
+:host > * {
   /* Contenu au-dessus de la superposition */
   position: relative;
   z-index: 2;
