@@ -1,12 +1,9 @@
-<div class="card w-auto d-inline-block p-3">
-  <h1 data-testid="banner-title">{{ title() }}</h1>
-  <p class="lead" data-testid="banner-description">{{ description() }}</p>
-  <button
-    data-testid="banner-button"
-    type="button"
-    (click)="clicked.emit()"
-    class="btn btn-primary btn-lg"
-  >
+<div
+  class="banner-container text-white d-flex flex-column justify-content-center align-items-center text-center"
+>
+  <h1 class="display-4 fw-bold">{{ title() }}</h1>
+  <p class="lead mt-3">{{ description() }}</p>
+  <a href="#" class="btn btn-primary btn-lg mt-4">
     {{ button() }}
-  </button>
+  </a>
 </div>
