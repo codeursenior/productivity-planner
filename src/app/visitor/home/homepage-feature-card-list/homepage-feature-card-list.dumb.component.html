@@ -1,31 +1,17 @@
 <div class="container text-center mt-5">
   <div class="row">
+    @for(feature of featureCardList(); track feature.name) {
     <div class="col-md-4">
       <div class="card">
+        <div class="card-header">
+          {{ feature.name }}
+        </div>
         <div class="card-body">
-          <h5 class="card-title">Planifier sa semaine</h5>
-          <i class="bi bi-star fs-1"></i>
-          <p class="card-text">Visibilité sur les 7 prochains jours</p>
+          <i class="bi fs-1 text-warning" [ngClass]="'bi-' + feature.icon"></i>
+          <p class="card-title">{{ feature.description }}</p>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Atteindre ses objectifs</h5>
-          <i class="bi bi-star fs-1"></i>
-          <p class="card-text">Priorisation des tâches</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Analyser sa productivité</h5>
-          <i class="bi bi-star fs-1"></i>
-          <p class="card-text">Visualiser le travail accompli</p>
-        </div>
-      </div>
-    </div>
+    }
   </div>
 </div>
