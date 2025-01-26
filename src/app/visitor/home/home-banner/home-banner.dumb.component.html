@@ -1,0 +1,10 @@
+<h1 data-testid="banner-title" class="display-4 fw-bold">{{ title() }}</h1>
+<p data-testid="banner-description" class="lead mt-3">{{ description() }}</p>
+<a
+  data-testid="banner-button"
+  href="#"
+  class="btn btn-primary btn-lg mt-4"
+  (click)="clicked.emit()"
+>
+  {{ button() }}
+</a>

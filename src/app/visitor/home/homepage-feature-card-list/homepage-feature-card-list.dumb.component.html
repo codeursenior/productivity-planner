@@ -1,0 +1,17 @@
+<div class="container text-center mt-5">
+  <div class="row">
+    @for(feature of featureCardList(); track feature.name) {
+    <div class="col-md-4">
+      <div class="card" data-testid="feature-card">
+        <div class="card-header" data-testid="feature-card-title">
+          {{ feature.name }}
+        </div>
+        <div class="card-body">
+          <i class="bi fs-1 text-warning" [ngClass]="'bi-' + feature.icon"></i>
+          <p class="card-title">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
