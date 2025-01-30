@@ -1,1 +1,54 @@
-<p>signup works!</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        <!-- NAME -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            #nameField="ngModel"
+            [(ngModel)]="name"
+            type="name"
+            name="name"
+            class="form-control"
+            id="name"
+            required
+            maxlength="50"
+          />
+        </div>
+        @if(nameField.dirty && nameField.hasError('required')) {
+        <div class="form-text text-danger">Name is required.</div>
+        }
+        <!-- EMAIL -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" />
+        </div>
+        <!-- PASSWORD -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            autocomplete="new-password"
+          />
+        </div>
+        <!-- CONFIRM PASSWORD -->
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label">
+            Confirm password
+          </label>
+          <input type="password" class="form-control" id="confirm-password" />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="signupForm.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
