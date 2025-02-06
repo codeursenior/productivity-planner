@@ -4,7 +4,6 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-homepage-feature-card-list',
-  standalone: true,
   imports: [NgClass],
   templateUrl: './homepage-feature-card-list.dumb.component.html',
   styleUrl: './homepage-feature-card-list.dumb.component.scss',
