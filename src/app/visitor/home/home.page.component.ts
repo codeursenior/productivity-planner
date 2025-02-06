@@ -3,9 +3,9 @@ import { HomeBannerDumbComponent } from './home-banner/home-banner.dumb.componen
 import { HomepageFeatureCardListDumbComponent } from './homepage-feature-card-list/homepage-feature-card-list.dumb.component';
 
 @Component({
-    imports: [HomeBannerDumbComponent, HomepageFeatureCardListDumbComponent],
-    templateUrl: './home.page.component.html',
-    styleUrl: './home.page.component.scss'
+  imports: [HomeBannerDumbComponent, HomepageFeatureCardListDumbComponent],
+  templateUrl: './home.page.component.html',
+  styleUrl: './home.page.component.scss',
 })
 export class HomePageComponent {
   featureCardList = signal([
