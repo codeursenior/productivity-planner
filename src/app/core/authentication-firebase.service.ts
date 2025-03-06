@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { map, Observable } from 'rxjs';
@@ -65,25 +65,3 @@ export class AuthenticationFirebaseService implements AuthenticationService {
     );
   }
 }
-
-// save(
-//   email: string,
-//   userId: string,
-//   bearerToken: string
-// ): Observable<unknown> {
-//   const baseUrl = `https://firestore.googleapis.com/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`;
-//   const userFirestoreCollectionId = 'users';
-//   const url = `${baseUrl}/${userFirestoreCollectionId}?key=${environment.firebaseConfig.apiKey}&documentId=${userId}`;
-//   const body = {
-//     fields: {
-//       email: { stringValue: email },
-//     },
-//   };
-
-//   const headers = new HttpHeaders({
-//     Authorization: `Bearer ${bearerToken}`,
-//   });
-//   const options = { headers };
-
-//   return this.#http.post(url, body, options);
-// }
