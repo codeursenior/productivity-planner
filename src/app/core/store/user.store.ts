@@ -6,9 +6,9 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../port/authentication.service';
 import { User, Visitor } from '../entity/user.interface';
-import { UserService } from '../repository/user.service';
+import { UserService } from '../port/user.service';
 
 interface UserState {
   user: User | undefined;
