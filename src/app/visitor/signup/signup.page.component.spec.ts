@@ -55,7 +55,7 @@ describe('SignupPageComponent', () => {
   })
 
   describe('when user interact with name field', () => {
-    it('sould display error message when field is empty', () => {
+    it('should display error message when field is empty', () => {
       name.nativeElement.value = '';
       name.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
@@ -66,7 +66,7 @@ describe('SignupPageComponent', () => {
       expect(errorMessage).toBe('Name is required.');
     });
 
-    it('sould display error message when field contain less than 3 characters', () => {
+    it('should display error message when field contain less than 3 characters', () => {
       name.nativeElement.value = 'a';
       name.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
@@ -77,7 +77,7 @@ describe('SignupPageComponent', () => {
       expect(errorMessage).toContain('Name must contain at least 3 caracters.');
     });
 
-    it('sould display error message when field contain more than 20 characters', () => {
+    it('should display error message when field contain more than 20 characters', () => {
       name.nativeElement.value = 'abcdefghijklmnopqrstuvwxyz';
       name.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
@@ -88,7 +88,7 @@ describe('SignupPageComponent', () => {
       expect(errorMessage).toContain('Name must contain maximum 20 caracters.');
     });
 
-    it('sould display error message when field do not contain only letters', () => {
+    it('should display error message when field do not contain only letters', () => {
       name.nativeElement.value = '!';
       name.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
@@ -101,25 +101,25 @@ describe('SignupPageComponent', () => {
   });
 
   describe('when user interact with email field', () => {
-    it.todo('sould display error message when field is empty');
-    it.todo('sould display error message when field do not contain a valid HTML5 email');
+    it.todo('should display error message when field is empty');
+    it.todo('should display error message when field do not contain a valid HTML5 email');
   });
 
   describe('when user interact with password field', () => {
-    it.todo('sould display error message when field is empty');
-    it.todo('sould display error message when field contain less than 3 characters');
-    it.todo('sould display error message when field contain more than 20 characters');
-    it.todo('sould display error message when field do not contain only letters');
+    it.todo('should display error message when field is empty');
+    it.todo('should display error message when field contain less than 3 characters');
+    it.todo('should display error message when field contain more than 20 characters');
+    it.todo('should display error message when field do not contain only letters');
   });
 
   describe('when user interact with "confirm password" field', () => {
-    it.todo('sould display error message when field is empty');
-    it.todo('sould display error message when field contain less than 3 characters');
-    it.todo('sould display error message when field contain more than 20 characters');
-    it.todo('sould display error message when field do not contain only letters');
+    it.todo('should display error message when field is empty');
+    it.todo('should display error message when field contain less than 3 characters');
+    it.todo('should display error message when field contain more than 20 characters');
+    it.todo('should display error message when field do not contain only letters');
   });
 
   describe('when user submit the form', () => {
-    it.todo('sould register the user');
+    it.todo('should register the user');
   });
 });
