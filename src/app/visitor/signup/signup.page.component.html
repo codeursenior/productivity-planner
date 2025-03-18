@@ -6,6 +6,7 @@
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input
+            data-testid="name"
             #nameField="ngModel"
             [(ngModel)]="name"
             type="text"
@@ -20,12 +21,28 @@
           />
         </div>
         @if(nameField.dirty && nameField.hasError('required')) {
-        <div class="form-text text-danger">Name is required.</div>
+          <div class="form-text text-danger" data-testid="error-name-required">Name is required.</div>
+        }
+        @if(nameField.dirty && nameField.hasError('minlength')) {
+          <div class="form-text text-danger" data-testid="error-name-minlength">
+            Name must contain at least {{ nameField.getError('minlength').requiredLength }} caracters.
+          </div>
+        }
+        @if(nameField.dirty && nameField.hasError('maxlength')) {
+          <div class="form-text text-danger" data-testid="error-name-maxlength">
+            Name must contain maximum {{ nameField.getError('maxlength').requiredLength }} caracters.
+          </div>
+        }
+        @if(nameField.dirty && nameField.hasError('pattern')) {
+          <div class="form-text text-danger" data-testid="error-name-pattern">
+            Name must contain only letters.
+          </div>
         }
         <!-- EMAIL -->
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
+            data-testid="email"
             type="email"
             [(ngModel)]="email"
             name="email"
@@ -41,6 +58,7 @@
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <input
+            data-testid="password"
             type="password"
             class="form-control"
             id="password"
@@ -58,6 +76,7 @@
             Confirm password
           </label>
           <input
+            data-testid="confirm-password"
             [(ngModel)]="confirmPassword"
             #confirmPasswordField="ngModel"
             name="confirmPassword"
@@ -71,6 +90,7 @@
           />
         </div>
         <button
+          data-testid="submit-button"
           type="submit"
           class="btn btn-primary w-100"
           [disabled]="form.invalid"
