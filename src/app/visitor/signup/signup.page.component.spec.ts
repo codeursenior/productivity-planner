@@ -193,15 +193,57 @@ describe('SignupPageComponent', () => {
   });
 
   describe('when user interact with "confirm password" field', () => {
-    it.todo('should display error message when field is empty');
-    it.todo('should display error message when field do not have same value as password field');
+    it('should display error message when field is empty', () => {
+      confirmPassword.nativeElement.value = '';
+      confirmPassword.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      const error = fixture.debugElement.query(By.css('[data-testid="error-confirm-password-required"]'));
+      const errorMessage = error.nativeElement.textContent;
+
+      expect(errorMessage).toContain('Confirm password is required.');
+    });
+
+    it('should display error message when field do not have same value as password field', () => {
+      password.nativeElement.value = 'Abc1$def';
+      password.nativeElement.dispatchEvent(new Event('input'));
+      confirmPassword.nativeElement.value = 'Different1$';
+      confirmPassword.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      const error = fixture.debugElement.query(By.css('[data-testid="error-confirm-password-match"]'));
+      const errorMessage = error.nativeElement.textContent;
+
       expect(errorMessage).toContain('Passwords do not match.');
     });
   });
 
   describe('when user submit the form', () => {
-    it.todo('should register the user');
+    it('should register the user with form values', () => {
+      const userStore = TestBed.inject(UserStore);
+      const spy = spyOn(userStore, 'register');
+
+      name.nativeElement.value = 'John';
+      name.nativeElement.dispatchEvent(new Event('input'));
+      email.nativeElement.value = 'john@example.com';
+      email.nativeElement.dispatchEvent(new Event('input'));
+      password.nativeElement.value = 'Abc1$def';
+      password.nativeElement.dispatchEvent(new Event('input'));
+      confirmPassword.nativeElement.value = 'Abc1$def';
+      confirmPassword.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      button.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith({
+        name: 'John',
+        email: 'john@example.com',
+        password: 'Abc1$def'
       });
     });
   });
+
+
 });
