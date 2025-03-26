@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarSmartComponent } from './core/navbar/navbar.smart.component';
+import { NavbarSmartComponent } from './core/component/navbar/navbar.smart.component';
 
 @Component({
   selector: 'app-root',
