@@ -19,7 +19,7 @@ export class SignupPageComponent {
   readonly password = signal('');
   readonly confirmPassword = signal('');
 
-  readonly isPasswordMatchValid = computed(
+  readonly isPasswordMatch = computed(
     () => this.password() === this.confirmPassword()
   );
 

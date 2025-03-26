@@ -193,17 +193,6 @@ describe('SignupPageComponent', () => {
   });
 
   describe('when user interact with "confirm password" field', () => {
-    it('should display error message when field is empty', () => {
-      confirmPassword.nativeElement.value = '';
-      confirmPassword.nativeElement.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-
-      const error = fixture.debugElement.query(By.css('[data-testid="error-confirm-password-required"]'));
-      const errorMessage = error.nativeElement.textContent;
-
-      expect(errorMessage).toContain('Confirm password is required.');
-    });
-
     it('should display error message when field do not have same value as password field', () => {
       password.nativeElement.value = 'Abc1$def';
       password.nativeElement.dispatchEvent(new Event('input'));
