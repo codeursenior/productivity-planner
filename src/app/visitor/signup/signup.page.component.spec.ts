@@ -107,16 +107,16 @@ describe('SignupPageComponent', () => {
 
   describe('when user interact with password field', () => {
     it.todo('should display error message when field is empty');
-    it.todo('should display error message when field contain less than 3 characters');
-    it.todo('should display error message when field contain more than 20 characters');
-    it.todo('should display error message when field do not contain only letters');
+    it.todo('should display error message when field contain less than 8 characters');
+    it.todo('should display error message when field do not contain at least 1 uppercase character');
+    it.todo('should display error message when field do not contain at least 1 lowercase character');
+    it.todo('should display error message when field do not contain at least 1 digit');
+    it.todo('should display error message when field do not contain at least 1 of the following special characters : @$!%*?&');
   });
 
   describe('when user interact with "confirm password" field', () => {
     it.todo('should display error message when field is empty');
-    it.todo('should display error message when field contain less than 3 characters');
-    it.todo('should display error message when field contain more than 20 characters');
-    it.todo('should display error message when field do not contain only letters');
+    it.todo('should display error message when field do not have same value as password field');
   });
 
   describe('when user submit the form', () => {
