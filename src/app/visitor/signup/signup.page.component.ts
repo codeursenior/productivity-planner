@@ -24,7 +24,6 @@ export class SignupPageComponent {
   );
 
   onSubmit() {
-    console.log('Form submitted');
     const visitor: Visitor = {
       name: this.name(),
       email: this.email(),
