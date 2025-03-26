@@ -51,9 +51,18 @@
             id="email"
             autocomplete="email"
             required
+            email
             [class.is-invalid]="emailField.dirty && emailField.invalid"
           />
         </div>
+        @if(emailField.dirty && emailField.hasError('required')) {
+          <div class="form-text text-danger" data-testid="error-email-required">Email is required.</div>
+        }
+        @if(emailField.dirty && emailField.hasError('email')) {
+          <div class="form-text text-danger" data-testid="error-email-pattern">
+            Email must be valid.
+          </div>
+        }
         <!-- PASSWORD -->
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
