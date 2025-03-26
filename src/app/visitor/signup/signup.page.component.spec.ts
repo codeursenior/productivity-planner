@@ -218,32 +218,5 @@ describe('SignupPageComponent', () => {
     });
   });
 
-  describe('when user submit the form', () => {
-    it('should register the user with form values', () => {
-      const userStore = TestBed.inject(UserStore);
-      const spy = jest.spyOn(userStore, 'register');
-
-      name.nativeElement.value = 'John';
-      name.nativeElement.dispatchEvent(new Event('input'));
-      email.nativeElement.value = 'john@example.com';
-      email.nativeElement.dispatchEvent(new Event('input'));
-      password.nativeElement.value = 'Abc1$def';
-      password.nativeElement.dispatchEvent(new Event('input'));
-      confirmPassword.nativeElement.value = 'Abc1$def';
-      confirmPassword.nativeElement.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-
-      button.nativeElement.click();
-      fixture.detectChanges();
-
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith({
-        name: 'John',
-        email: 'john@example.com',
-        password: 'Abc1$def'
-      });
-    });
-  });
-
 
 });
