@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { provideRouter, RouterOutlet } from '@angular/router';
+import { NavbarSmartComponent } from './core/component/navbar/navbar.smart.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, RouterOutlet, NavbarSmartComponent],
+      providers: [provideRouter([])]
     }).compileComponents();
   });
 
