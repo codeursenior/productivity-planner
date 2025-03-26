@@ -152,10 +152,10 @@ describe('SignupPageComponent', () => {
       password.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
 
-      const error = fixture.debugElement.query(By.css('[data-testid="error-password-uppercase"]'));
+      const error = fixture.debugElement.query(By.css('[data-testid="error-password-pattern"]'));
       const errorMessage = error.nativeElement.textContent;
 
-      expect(errorMessage).toContain('Password must contain at least one uppercase letter.');
+      expect(errorMessage).toContain('Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character (@$!%*?&).');
     });
 
     it('should display error message when field do not contain at least 1 lowercase character', () => {
@@ -163,10 +163,10 @@ describe('SignupPageComponent', () => {
       password.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
 
-      const error = fixture.debugElement.query(By.css('[data-testid="error-password-lowercase"]'));
+      const error = fixture.debugElement.query(By.css('[data-testid="error-password-pattern"]'));
       const errorMessage = error.nativeElement.textContent;
 
-      expect(errorMessage).toContain('Password must contain at least one lowercase letter.');
+      expect(errorMessage).toContain('Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character (@$!%*?&).');
     });
 
     it('should display error message when field do not contain at least 1 digit', () => {
@@ -174,10 +174,10 @@ describe('SignupPageComponent', () => {
       password.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
 
-      const error = fixture.debugElement.query(By.css('[data-testid="error-password-digit"]'));
+      const error = fixture.debugElement.query(By.css('[data-testid="error-password-pattern"]'));
       const errorMessage = error.nativeElement.textContent;
 
-      expect(errorMessage).toContain('Password must contain at least one digit.');
+      expect(errorMessage).toContain('Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character (@$!%*?&).');
     });
 
     it('should display error message when field do not contain at least 1 of the following special characters : @$!%*?&', () => {
@@ -185,10 +185,10 @@ describe('SignupPageComponent', () => {
       password.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
 
-      const error = fixture.debugElement.query(By.css('[data-testid="error-password-special"]'));
+      const error = fixture.debugElement.query(By.css('[data-testid="error-password-pattern"]'));
       const errorMessage = error.nativeElement.textContent;
 
-      expect(errorMessage).toContain('Password must contain at least one special character (@$!%*?&).');
+      expect(errorMessage).toContain('Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character (@$!%*?&).');
     });
   });
 
@@ -221,7 +221,7 @@ describe('SignupPageComponent', () => {
   describe('when user submit the form', () => {
     it('should register the user with form values', () => {
       const userStore = TestBed.inject(UserStore);
-      const spy = spyOn(userStore, 'register');
+      const spy = jest.spyOn(userStore, 'register');
 
       name.nativeElement.value = 'John';
       name.nativeElement.dispatchEvent(new Event('input'));
