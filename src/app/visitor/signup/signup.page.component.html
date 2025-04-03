@@ -63,6 +63,11 @@
             Email must be valid.
           </div>
         }
+        @if(emailAlreadyTakenErrorMessage() !== '') {
+          <div class="form-text text-danger" data-testid="error-email-already-taken">
+            {{ emailAlreadyTakenErrorMessage() }}
+          </div>
+        }
         <!-- PASSWORD -->
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -123,7 +128,7 @@
           data-testid="submit-button"
           type="submit"
           class="btn btn-primary w-100 mt-3"
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || !isPasswordMatch()"
         >
           Submit
         </button>

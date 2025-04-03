@@ -9,6 +9,8 @@ export interface RegisterResponse {
   userId: string;
 }
 
+export class EmailAlreadyTakenError extends Error {}
+
 export interface LoginResponse {
   jwtToken: string;
   jwtRefreshToken: string;
@@ -25,7 +27,7 @@ export abstract class AuthenticationService {
   abstract register(
     email: string,
     password: string
-  ): Observable<RegisterResponse>;
+  ): Observable<RegisterResponse | EmailAlreadyTakenError>;
 
   abstract login(email: string, password: string): Observable<LoginResponse>;
 }
