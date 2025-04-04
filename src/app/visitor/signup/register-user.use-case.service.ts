@@ -16,18 +16,16 @@ export class RegisterUserUseCaseService {
 
   async execute(visitor: Visitor): Promise<User> {
     // 1. Authenticate new visitor
-    const name = visitor.name;
-    const email = visitor.email;
-    const password = visitor.password;
-    const authResponse = await firstValueFrom(this.#authenticationService.register(email, password));
+    const { name, email, password }  = visitor;
+    const registerResponse = await firstValueFrom(this.#authenticationService.register(email, password));
 
-    if(authResponse instanceof EmailAlreadyTakenError) {
-      throw authResponse;
+    if(registerResponse instanceof EmailAlreadyTakenError) {
+      throw registerResponse;
     }
 
     // 2. Add credentials information in session storage
-    const jwtToken = authResponse.jwtToken;
-    const id = authResponse.userId;
+    const jwtToken = registerResponse.jwtToken;
+    const id = registerResponse.userId;
 
     localStorage.setItem('jwtToken', jwtToken);
     localStorage.setItem('email', email);
