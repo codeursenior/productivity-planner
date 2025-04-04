@@ -65,7 +65,7 @@
         }
         @if(isEmailAlreadyTaken()) {
           <div class="form-text text-danger" data-testid="error-email-already-taken">
-            {{ emailAlreadyTakenErrorMessage() }}
+            {{ emailAlreadyTakenError()?.message }}
           </div>
         }
         <!-- PASSWORD -->

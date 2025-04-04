@@ -26,8 +26,8 @@ export class SignupPageComponent {
     () => this.password() === this.confirmPassword()
   );
 
-  readonly emailAlreadyTakenErrorMessage = signal('');
-  readonly isEmailAlreadyTaken = computed(() => this.emailAlreadyTakenErrorMessage() !== '');
+  readonly emailAlreadyTakenError = signal<EmailAlreadyTakenError|null>(null);
+  readonly isEmailAlreadyTaken = computed(() => this.emailAlreadyTakenError()?.email === this.email());
 
   onSubmit() {
     const visitor: Visitor = {
@@ -42,7 +42,7 @@ export class SignupPageComponent {
       const isEmailAlreadyTaken = error instanceof EmailAlreadyTakenError;
       
       if(isEmailAlreadyTaken) {
-        this.emailAlreadyTakenErrorMessage.set(error.message);
+        this.emailAlreadyTakenError.set(error);
       }
     });
   }
