@@ -27,6 +27,7 @@ export class SignupPageComponent {
   );
 
   readonly emailAlreadyTakenErrorMessage = signal('');
+  readonly isEmailAlreadyTaken = computed(() => this.emailAlreadyTakenErrorMessage() !== '');
 
   onSubmit() {
     const visitor: Visitor = {
@@ -38,7 +39,9 @@ export class SignupPageComponent {
     this.#registerUserUseCase.execute(visitor)
     .then(() => this.#router.navigate(['/app/dashboard']))
     .catch(error => {
-      if(error instanceof EmailAlreadyTakenError) {
+      const isEmailAlreadyTaken = error instanceof EmailAlreadyTakenError;
+      
+      if(isEmailAlreadyTaken) {
         this.emailAlreadyTakenErrorMessage.set(error.message);
       }
     });
