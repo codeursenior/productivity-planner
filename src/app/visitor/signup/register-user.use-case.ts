@@ -9,7 +9,6 @@ import { UserStore } from 'src/app/core/store/user.store';
   providedIn: 'root'
 })
 export class RegisterUserUseCase {
-
   readonly #authenticationService = inject(AuthenticationService);
   readonly #userService = inject(UserService);
   readonly #userStore = inject(UserStore);
@@ -24,11 +23,9 @@ export class RegisterUserUseCase {
     }
 
     // 2. Add credentials information in session storage
-    const jwtToken = registerResponse.jwtToken;
-    const id = registerResponse.userId;
+    const { userId: id, jwtToken } = registerResponse;
 
     localStorage.setItem('jwtToken', jwtToken);
-    localStorage.setItem('email', email);
 
     // 3. Create new user in database
     const user: User = { id, name, email };
