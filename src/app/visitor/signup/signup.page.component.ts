@@ -13,15 +13,14 @@ import { EmailAlreadyTakenError } from './domain/email-already-taken.error';
   styleUrl: './signup.page.component.scss',
 })
 export class SignupPageComponent {
-  readonly store = inject(UserStore);
   readonly #registerUserUseCase = inject(RegisterUserUseCase);
   readonly #router = inject(Router);
 
+  readonly isLoading = signal(false);
   readonly name = signal('');
   readonly email = signal('');
   readonly password = signal('');
   readonly confirmPassword = signal('');
-
   readonly isPasswordMatch = computed(
     () => this.password() === this.confirmPassword()
   );
@@ -30,6 +29,8 @@ export class SignupPageComponent {
   readonly isEmailAlreadyTaken = computed(() => this.emailAlreadyTakenError()?.email === this.email());
 
   onSubmit() {
+    this.isLoading.set(true);
+
     const visitor: Visitor = {
       name: this.name(), 
       email: this.email(), 
@@ -39,6 +40,7 @@ export class SignupPageComponent {
     this.#registerUserUseCase.execute(visitor)
     .then(() => this.#router.navigate(['/app/dashboard']))
     .catch(error => {
+      this.isLoading.set(false);
       const isEmailAlreadyTaken = error instanceof EmailAlreadyTakenError;
       
       if(isEmailAlreadyTaken) {
