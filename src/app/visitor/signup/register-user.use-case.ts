@@ -8,7 +8,7 @@ import { UserStore } from 'src/app/core/store/user.store';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterUserUseCaseService {
+export class RegisterUserUseCase {
 
   readonly #authenticationService = inject(AuthenticationService);
   readonly #userService = inject(UserService);
