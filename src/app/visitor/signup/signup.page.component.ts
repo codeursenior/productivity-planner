@@ -1,9 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserStore } from '../../core/store/user.store';
 import { Visitor } from '../../core/entity/user.interface';
 import { RegisterUserUseCase } from './domain/register-user.use-case';
-import { Router } from '@angular/router';
 import { EmailAlreadyTakenError } from './domain/email-already-taken.error';
 
 @Component({
@@ -14,7 +12,6 @@ import { EmailAlreadyTakenError } from './domain/email-already-taken.error';
 })
 export class SignupPageComponent {
   readonly #registerUserUseCase = inject(RegisterUserUseCase);
-  readonly #router = inject(Router);
 
   readonly isLoading = signal(false);
   readonly name = signal('');
@@ -38,7 +35,6 @@ export class SignupPageComponent {
     }
 
     this.#registerUserUseCase.execute(visitor)
-    .then(() => this.#router.navigate(['/app/dashboard']))
     .catch(error => {
       this.isLoading.set(false);
       const isEmailAlreadyTaken = error instanceof EmailAlreadyTakenError;

@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/core/port/authentication.service'
 import { UserService } from 'src/app/core/port/user.service';
 import { UserStore } from 'src/app/core/store/user.store';
 import { EmailAlreadyTakenError } from './email-already-taken.error';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class RegisterUserUseCase {
   readonly #authenticationService = inject(AuthenticationService);
   readonly #userService = inject(UserService);
   readonly #userStore = inject(UserStore);
+  readonly #router = inject(Router);
+
 
   async execute(visitor: Visitor): Promise<void> {
     // 1. Authenticate new visitor
@@ -34,5 +37,9 @@ export class RegisterUserUseCase {
 
     // 4. Add user in app store
     this.#userStore.register(user);
+
+    // 5. Redirect user to dashboard
+    this.#router.navigate(['/app/dashboard'])
+
   }
 }
