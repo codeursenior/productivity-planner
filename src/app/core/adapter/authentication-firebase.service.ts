@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import {
   AuthenticationService,
   EmailAlreadyTakenError,
@@ -52,7 +52,7 @@ export class AuthenticationFirebaseService implements AuthenticationService {
           return of(new EmailAlreadyTakenError(email));
         } 
 
-        throw error;
+        return throwError(() => error);
       })
     );
   }

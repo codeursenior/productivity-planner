@@ -9,7 +9,12 @@ export interface RegisterResponse {
   userId: string;
 }
 
-export class EmailAlreadyTakenError extends Error {}
+export class EmailAlreadyTakenError extends Error {
+  constructor(email: string) {
+    super(`Email ${email} is already taken. Please try another email.`);
+    this.name = 'EmailAlreadyTakenError';
+  }
+}
 
 export interface LoginResponse {
   jwtToken: string;

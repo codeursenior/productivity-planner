@@ -63,7 +63,7 @@
             Email must be valid.
           </div>
         }
-        @if(emailAlreadyTakenErrorMessage() !== '') {
+        @if(isEmailAlreadyTaken()) {
           <div class="form-text text-danger" data-testid="error-email-already-taken">
             {{ emailAlreadyTakenErrorMessage() }}
           </div>
