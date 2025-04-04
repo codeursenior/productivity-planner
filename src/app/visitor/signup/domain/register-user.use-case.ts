@@ -39,7 +39,7 @@ export class RegisterUserUseCase {
     this.#userStore.register(user);
 
     // 5. Redirect user to dashboard
-    this.#router.navigate(['/app/dashboard'])
+    this.#router.navigate(['/app/dashboard']);
 
   }
 }
