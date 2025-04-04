@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserStore } from '../../core/store/user.store';
 import { Visitor } from '../../core/entity/user.interface';
-import { RegisterUserUseCase } from './register-user.use-case';
+import { RegisterUserUseCase } from './domain/register-user.use-case';
 import { Router } from '@angular/router';
 import { EmailAlreadyTakenError } from 'src/app/core/port/authentication.service';
 
