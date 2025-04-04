@@ -14,7 +14,7 @@ export class RegisterUserUseCase {
   readonly #userService = inject(UserService);
   readonly #userStore = inject(UserStore);
 
-  async execute(visitor: Visitor): Promise<User> {
+  async execute(visitor: Visitor): Promise<void> {
     // 1. Authenticate new visitor
     const { name, email, password }  = visitor;
     const registerResponse = await firstValueFrom(this.#authenticationService.register(email, password));
@@ -34,7 +34,5 @@ export class RegisterUserUseCase {
 
     // 4. Add user in app store
     this.#userStore.register(user);
-
-    return user;
   }
 }
