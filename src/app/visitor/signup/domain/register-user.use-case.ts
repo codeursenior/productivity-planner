@@ -19,7 +19,7 @@ export class RegisterUserUseCase {
 
   async execute(visitor: Visitor): Promise<void> {
     // 1. Authenticate new visitor
-    const { name, email, password }  = visitor;
+    const { name, email, password } = visitor;
     const registerResponse = await firstValueFrom(this.#authenticationService.register(email, password));
 
     if(registerResponse instanceof EmailAlreadyTakenError) {
