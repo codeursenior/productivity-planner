@@ -5,7 +5,7 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import {
   AuthenticationService,
   LoginResponse,
-  RegisterPayload,
+  RegisterResponse,
 } from '../port/authentication.service';
 import { EmailAlreadyTakenError } from 'src/app/visitor/signup/domain/email-already-taken.error';
 
@@ -36,7 +36,7 @@ interface FirebaseResponseSignin {
 export class AuthenticationFirebaseService implements AuthenticationService {
   readonly #http = inject(HttpClient);
 
-  register(email: string, password: string): Observable<RegisterPayload | EmailAlreadyTakenError> {
+  register(email: string, password: string): Observable<RegisterResponse> {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseConfig.apiKey}`;
     const body = { email, password, returnSecureToken: true };
 
