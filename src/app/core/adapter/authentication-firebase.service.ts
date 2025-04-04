@@ -4,10 +4,10 @@ import { environment } from '@env/environment';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import {
   AuthenticationService,
-  EmailAlreadyTakenError,
   LoginResponse,
   RegisterPayload,
 } from '../port/authentication.service';
+import { EmailAlreadyTakenError } from 'src/app/visitor/signup/domain/email-already-taken.error';
 
 /**
  * Represents the payload of the response received when registering a new user in Firebase.

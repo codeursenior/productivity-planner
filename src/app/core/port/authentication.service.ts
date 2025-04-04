@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationFirebaseService } from '../adapter/authentication-firebase.service';
+import { EmailAlreadyTakenError } from 'src/app/visitor/signup/domain/email-already-taken.error';
 
 export interface RegisterPayload {
   jwtToken: string;
   jwtRefreshToken: string;
   expiresIn: string;
   userId: string;
-}
-
-export class EmailAlreadyTakenError extends Error {
-  constructor(readonly email: string) {
-    super(`Email ${email} is already taken. Please try another email.`);
-    this.name = 'EmailAlreadyTakenError';
-  }
 }
 
 export interface LoginResponse {

@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { User, Visitor } from 'src/app/core/entity/user.interface';
-import { AuthenticationService, EmailAlreadyTakenError } from 'src/app/core/port/authentication.service';
+import { AuthenticationService } from 'src/app/core/port/authentication.service';
 import { UserService } from 'src/app/core/port/user.service';
 import { UserStore } from 'src/app/core/store/user.store';
+import { EmailAlreadyTakenError } from './email-already-taken.error';
 
 @Injectable({
   providedIn: 'root'
