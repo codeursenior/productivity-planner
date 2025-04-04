@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { UserService } from '../port/user.service';
-import { ignoreElements, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { User } from '../entity/user.interface';
