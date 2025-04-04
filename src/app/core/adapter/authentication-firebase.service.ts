@@ -6,7 +6,7 @@ import {
   AuthenticationService,
   EmailAlreadyTakenError,
   LoginResponse,
-  RegisterResponse,
+  RegisterPayload,
 } from '../port/authentication.service';
 
 /**
@@ -36,7 +36,7 @@ interface FirebaseResponseSignin {
 export class AuthenticationFirebaseService implements AuthenticationService {
   readonly #http = inject(HttpClient);
 
-  register(email: string, password: string): Observable<RegisterResponse | EmailAlreadyTakenError> {
+  register(email: string, password: string): Observable<RegisterPayload | EmailAlreadyTakenError> {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseConfig.apiKey}`;
     const body = { email, password, returnSecureToken: true };
 
