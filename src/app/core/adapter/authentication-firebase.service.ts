@@ -7,7 +7,7 @@ import {
   LoginResponse,
   RegisterResponse,
 } from '../port/authentication.service';
-import { EmailAlreadyTakenError } from 'src/app/visitor/signup/domain/email-already-taken.error';
+import { EmailAlreadyTakenError } from '@app/visitor/signup/domain/email-already-taken.error';
 
 /**
  * Represents the payload of the response received when registering a new user in Firebase.

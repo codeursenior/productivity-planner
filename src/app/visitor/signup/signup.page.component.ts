@@ -1,11 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Visitor } from '../../core/entity/user.interface';
+import { Visitor } from '@app/core/entity/user.interface';
 import { RegisterUserUseCase } from './domain/register-user.use-case';
 import { EmailAlreadyTakenError } from './domain/email-already-taken.error';
 
 @Component({
-  standalone: true,
   imports: [FormsModule],
   templateUrl: './signup.page.component.html',
   styleUrl: './signup.page.component.scss',
