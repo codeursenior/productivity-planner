@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-
-import { LoginUserUseCaseService } from './login-user.use-case.service';
+import { LoginUserUseCase } from './login-user.use-case';
 
 describe('LoginUserUseCaseService', () => {
-  let service: LoginUserUseCaseService;
+  let service: LoginUserUseCase;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LoginUserUseCaseService);
+    service = TestBed.inject(LoginUserUseCase);
   });
 
   it('should be created', () => {
