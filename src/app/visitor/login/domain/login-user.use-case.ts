@@ -40,7 +40,7 @@ export class LoginUserUseCase {
 
     // 5. Add user in app store
     const user = await firstValueFrom(this.#userService.fetch(userId));
-    this.#userStore.login(user);
+    this.#userStore.load(user);
 
     // 6. Redirect user to dashboard
     this.#router.navigate(['/app/dashboard']);

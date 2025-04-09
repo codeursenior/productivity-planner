@@ -25,7 +25,7 @@ export const UserStore = signalStore(
     return { isGoogleUser };
   }),
   withMethods((store) => ({
-    register(user: User): void {
+    load(user: User): void {
       patchState(store, { user });
     },
   }))

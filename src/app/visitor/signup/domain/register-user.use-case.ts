@@ -36,7 +36,7 @@ export class RegisterUserUseCase {
     await firstValueFrom(this.#userService.create(user, jwtToken));
 
     // 4. Add user in app store
-    this.#userStore.register(user);
+    this.#userStore.load(user);
 
     // 5. Redirect user to dashboard
     this.#router.navigate(['/app/dashboard']);
