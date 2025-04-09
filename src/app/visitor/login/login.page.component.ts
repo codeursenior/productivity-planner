@@ -1,5 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { InvalidPasswordError } from './domain/invalid-password.error';
+import { UserEmailNotFoundError } from './domain/user-email-not-found.error';
+import { LoginUserUseCase } from './domain/login-user.use-case';
 
 @Component({
   imports: [FormsModule],
@@ -7,6 +10,23 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.page.component.scss'
 })
 export class LoginPageComponent {
+  readonly #loginUserUseCase = inject(LoginUserUseCase);
+
   readonly email = signal('');
   readonly password = signal('');
+
+  readonly userEmailNotFoundError = signal<UserEmailNotFoundError|null>(null);
+  readonly invalidPasswordError = signal<InvalidPasswordError|null>(null);
+
+  onSubmit() {
+    this.#loginUserUseCase.exectute(this.email(), this.password()).catch(error => {
+      if(error instanceof UserEmailNotFoundError) {
+        this.userEmailNotFoundError.set(error);
+      }
+
+      if(error instanceof InvalidPasswordError) {
+        this.invalidPasswordError.set(error);
+      } 
+    })
+  }
 }
