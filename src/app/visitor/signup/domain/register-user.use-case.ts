@@ -26,7 +26,7 @@ export class RegisterUserUseCase {
       throw registerResponse;
     }
 
-    // 2. Add credentials information in session storage
+    // 2. Add credentials information in webapp storage
     const { userId: id, jwtToken } = registerResponse;
 
     localStorage.setItem('jwtToken', jwtToken);
