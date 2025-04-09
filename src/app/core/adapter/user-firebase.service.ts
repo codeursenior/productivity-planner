@@ -16,6 +16,23 @@ export class UserFirebaseService implements UserService {
     this.#USER_COLLECTION_ID
   }?key=${this.#FIREBASE_API_KEY}&documentId=`;
 
+  fetch(userId: string): Observable<User> {
+    const url = `${this.#FIRESTORE_URL}/${this.#USER_COLLECTION_ID}/${userId}?key=${this.#FIREBASE_API_KEY}`;
+
+    return this.#http.get<any>(url).pipe(
+      map((response) => {
+        console.log("Login firebase response");
+        console.log(response);
+        const fields = response.fields;
+        return {
+          id: userId,
+          name: fields.name.stringValue,
+          email: fields.email.stringValue,
+        } as User;
+      })
+    );
+  }
+
   create(user: User, bearerToken: string): Observable<void> {
     const url = `${this.#USER_COLLECTION_URL}${user.id}`;
     const body = {

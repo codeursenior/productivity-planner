@@ -8,9 +8,9 @@ import { User } from '../entity/user.interface';
   useClass: UserFirebaseService,
 })
 export abstract class UserService {
+  abstract fetch(userId: string): Observable<User>;
   abstract create(user: User, bearerToken: string): Observable<void>;
 
-  // fetch(id: string): Observable<User> {}
-  // delete(user: User): Observable<void> {}
+  // delete(user: User): Observable<void> {};
   // update(user: User): Observable<void> {};
 }
