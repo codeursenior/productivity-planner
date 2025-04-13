@@ -13,9 +13,9 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch --onlyChanged --verbose",
     "lint": "ng lint",
-    "deploy:production": "npm run build:production && firebase use production && firebase deploy",
-    "deploy:staging": "npm run build:staging && firebase use staging && firebase deploy",
-    "deploy:development": "npm run build:development && firebase use development && firebase deploy"
+    "deploy:production": "npm run build:production && npx firebase-tools use production && npx firebase-tools deploy",
+    "deploy:staging": "npm run build:staging && npx firebase-tools use staging && npx firebase-tools deploy",
+    "deploy:development": "npm run build:development && npx firebase-tools use development && npx firebase-tools deploy"
   },
   "private": true,
   "dependencies": {
