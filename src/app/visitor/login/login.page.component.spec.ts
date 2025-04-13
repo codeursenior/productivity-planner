@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginPageComponent } from './login.page.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { LoginUserUseCase } from './domain/login-user.use-case';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -12,7 +13,10 @@ describe('LoginPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginPageComponent]
+      imports: [LoginPageComponent],
+      providers: [
+        { provide: LoginUserUseCase, useValue: {} }
+      ]
     })
     .compileComponents();
 
