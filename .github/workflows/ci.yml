@@ -30,11 +30,11 @@ jobs:
 
       # Audit de sécurité
       - name: Audit
-        run: npm audit
+        run: npm audit --audit-level=high
 
       # Vérification de la signature des audits
       - name: Audit Signature
-        run: npm audit signatures
+        run: npm audit signatures --audit-level=high
 
       # Linter
       - name: Lint
