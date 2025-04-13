@@ -27,6 +27,11 @@
                 <div class="form-text text-danger" data-testid="error-email-pattern">Email must be valid.</div>
               }
           }
+          @if(isUserEmailNotFound()) {
+            <div class="form-text text-danger" data-testid="error-email-already-taken">
+              {{ userEmailNotFoundError()?.message }}
+            </div>
+          }
 
           <!-- PASSWORD -->
           <div class="mb-3">
@@ -46,6 +51,11 @@
           </div>
           @if(passwordField.dirty && passwordField.hasError('required')) {
             <div class="form-text text-danger" data-testid="error-password-required">Password is required.</div>
+          }
+          @if(isInvalidPassword()) {
+            <div class="form-text text-danger" data-testid="error-email-already-taken">
+              {{ invalidPasswordError()?.message }}
+            </div>
           }
           <button
             data-testid="submit-button"
