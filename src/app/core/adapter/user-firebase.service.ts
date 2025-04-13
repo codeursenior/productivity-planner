@@ -5,6 +5,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { User } from '../entity/user.interface';
 
+interface UserFirebasePayload {
+  fields: {
+    name: { stringValue: string };
+    email: { stringValue: string };
+  };
+}
+
 @Injectable()
 export class UserFirebaseService implements UserService {
   readonly #http = inject(HttpClient);
@@ -19,17 +26,12 @@ export class UserFirebaseService implements UserService {
   fetch(userId: string): Observable<User> {
     const url = `${this.#FIRESTORE_URL}/${this.#USER_COLLECTION_ID}/${userId}?key=${this.#FIREBASE_API_KEY}`;
 
-    return this.#http.get<any>(url).pipe(
-      map((response) => {
-        console.log("Login firebase response");
-        console.log(response);
-        const fields = response.fields;
-        return {
+    return this.#http.get<UserFirebasePayload>(url).pipe(
+      map((response) => ({
           id: userId,
-          name: fields.name.stringValue,
-          email: fields.email.stringValue,
-        } as User;
-      })
+          name: response.fields.name.stringValue,
+          email: response.fields.email.stringValue,
+      }))
     );
   }
 
