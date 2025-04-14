@@ -40,6 +40,5 @@ export class RegisterUserUseCase {
 
     // 5. Redirect user to dashboard
     this.#router.navigate(['/app/dashboard']);
-
   }
 }
