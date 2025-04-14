@@ -71,10 +71,9 @@ export class AuthenticationFirebaseService implements AuthenticationService {
         isRegistered: response.registered,
       })),
       catchError(error => {
-
-          if(error.error.error.message === 'INVALID_LOGIN_CREDENTIALS') {
-            return of(new InvalidCredentialError());
-          }
+        if(error.error.error.message === 'INVALID_LOGIN_CREDENTIALS') {
+          return of(new InvalidCredentialError());
+        }
 
         return throwError(() => error);
       })
