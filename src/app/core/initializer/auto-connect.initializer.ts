@@ -1,5 +1,5 @@
-import { concatMap, map, Observable } from 'rxjs';
-import { tap, switchMap, catchError, of } from 'rxjs';
+import { concatMap, Observable } from 'rxjs';
+import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/port/authentication.service';
 import { UserService } from '@app/core/port/user.service';
