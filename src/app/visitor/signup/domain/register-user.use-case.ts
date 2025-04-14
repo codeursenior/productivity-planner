@@ -27,9 +27,11 @@ export class RegisterUserUseCase {
     }
 
     // 2. Add credentials information in webapp storage
-    const { userId: id, jwtToken } = registerResponse;
+    const { userId: id, jwtToken, jwtRefreshToken, expiresIn } = registerResponse;
 
     localStorage.setItem('jwtToken', jwtToken);
+    localStorage.setItem('jwtRefreshToken', jwtRefreshToken);
+    localStorage.setItem('expiresIn', expiresIn);
 
     // 3. Create new user in database
     const user: User = { id, name, email };
