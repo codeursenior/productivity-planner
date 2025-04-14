@@ -25,7 +25,7 @@ export class LoginUserUseCase {
     }
 
     // 3. Add credentials information in webapp storage
-    const { jwtToken, jwtRefreshToken, expiresIn, userId } = response;
+    const { userId, jwtToken, jwtRefreshToken, expiresIn } = response;
 
     localStorage.setItem('jwtToken', jwtToken);
     localStorage.setItem('jwtRefreshToken', jwtRefreshToken);
