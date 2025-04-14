@@ -26,7 +26,7 @@ export class RegisterUserUseCase {
       throw registerResponse;
     }
 
-    // 2. Add credentials information in session storage
+    // 2. Add credentials information in webapp storage
     const { userId: id, jwtToken } = registerResponse;
 
     localStorage.setItem('jwtToken', jwtToken);
@@ -36,10 +36,9 @@ export class RegisterUserUseCase {
     await firstValueFrom(this.#userService.create(user, jwtToken));
 
     // 4. Add user in app store
-    this.#userStore.register(user);
+    this.#userStore.load(user);
 
     // 5. Redirect user to dashboard
     this.#router.navigate(['/app/dashboard']);
-
   }
 }
