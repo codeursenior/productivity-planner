@@ -13,8 +13,8 @@ describe('RegisterUserUseCaseService', () => {
     TestBed.configureTestingModule({
       providers: [
         RegisterUserUseCase,
-        { provide: AuthenticationService, useValue: { register: jest.fn()}},
-        { provide: UserService, useValue: { create: jest.fn( )}},
+        { provide: AuthenticationService, useValue: { register: jest.fn() }},
+        { provide: UserService, useValue: { create: jest.fn( ) }},
         { provide: UserStore, useValue: { register: jest.fn() }},
         { provide: Router, useValue: { navigate: jest.fn() }},
       ],

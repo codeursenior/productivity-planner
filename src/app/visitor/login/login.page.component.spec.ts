@@ -8,14 +8,17 @@ import { LoginUserUseCase } from './domain/login-user.use-case';
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
+  
+  let loginUserUseCase: LoginUserUseCase;
   let email: DebugElement;
   let password: DebugElement;
+  let submitButton: DebugElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LoginPageComponent],
       providers: [
-        { provide: LoginUserUseCase, useValue: {} }
+        { provide: LoginUserUseCase, useValue: { execute: jest.fn( ) } }
       ]
     })
     .compileComponents();
@@ -24,8 +27,10 @@ describe('LoginPageComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    loginUserUseCase = TestBed.inject(LoginUserUseCase);
     email = fixture.debugElement.query(By.css('[data-testid="email"]'));
     password = fixture.debugElement.query(By.css('[data-testid="password"]'));
+    submitButton = fixture.debugElement.query(By.css('[data-testid="submit-button"]'));
   });
 
   it('should create', () => {
@@ -93,6 +98,46 @@ describe('LoginPageComponent', () => {
 
       // Assert
       expect(error).toBeNull();
+    });
+  });
+
+  describe('when user submit a valid login form', () => {
+    it('should call login use case with email and password', () => {
+      // Arrange
+      email.nativeElement.value = 'john.doe@acme.com';
+      email.nativeElement.dispatchEvent(new Event('input'));
+      password.nativeElement.value = 'password-1234';
+      password.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      // Act
+      submitButton.nativeElement.click();
+      fixture.detectChanges();
+    
+      // Assert
+      expect(loginUserUseCase.execute).toHaveBeenCalledTimes(1);
+      expect(loginUserUseCase.execute).toHaveBeenCalledWith(
+        email.nativeElement.value,
+        password.nativeElement.value
+      );
+    });
+  });
+
+  describe('when user submit an invalid login form', () => {
+    it('should not call login use case', () => {
+      // Arrange
+      email.nativeElement.value = 'invlid-email';
+      email.nativeElement.dispatchEvent(new Event('input'));
+      password.nativeElement.value = 'invalid-password';
+      password.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      // Act
+      submitButton.nativeElement.click();
+      fixture.detectChanges();
+    
+      // Assert
+      expect(loginUserUseCase.execute).not.toHaveBeenCalled();
     });
   });
 });

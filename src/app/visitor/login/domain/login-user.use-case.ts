@@ -15,7 +15,7 @@ export class LoginUserUseCase {
   readonly #userStore = inject(UserStore);
   readonly #router = inject(Router);
 
-  async exectute(email: string, password: string): Promise<void> {
+  async execute(email: string, password: string): Promise<void> {
     // 1. Authenticate existing user
     const response = await firstValueFrom(this.#authenticationService.login(email, password));
 
