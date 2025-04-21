@@ -20,6 +20,6 @@ export class LoginPageComponent {
       if(error instanceof InvalidCredentialError) {
         this.invalidCredentialError.set(error);
       }
-    })
+    });
   }
 }
