@@ -8,6 +8,7 @@ import { LoginUserUseCase } from './domain/login-user.use-case';
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
+  
   let loginUserUseCase: LoginUserUseCase;
   let email: DebugElement;
   let password: DebugElement;
