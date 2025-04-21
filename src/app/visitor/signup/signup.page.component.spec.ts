@@ -8,6 +8,7 @@ describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
   let fixture: ComponentFixture<SignupPageComponent>;
 
+  let registerUseCase: RegisterUserUseCase
   let name: DebugElement;
   let email: DebugElement;
   let password: DebugElement;
@@ -18,7 +19,7 @@ describe('SignupPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SignupPageComponent],
       providers: [
-        { provide: RegisterUserUseCase, useValue: {} }
+        { provide: RegisterUserUseCase, useValue: { execute: jest.fn() } }
       ]
     })
     .compileComponents();
@@ -27,6 +28,7 @@ describe('SignupPageComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    registerUseCase = TestBed.inject(RegisterUserUseCase);
     name = fixture.debugElement.query(By.css('[data-testid="name"]'));
     email = fixture.debugElement.query(By.css('[data-testid="email"]'));
     password = fixture.debugElement.query(By.css('[data-testid="password"]'));
@@ -201,6 +203,49 @@ describe('SignupPageComponent', () => {
       const errorMessage = error.nativeElement.textContent;
 
       expect(errorMessage).toContain('Passwords do not match.');
+    });
+  });
+
+  describe('when user submit a valid signup form', () => {
+    it('should call register use case with correct visitor informations', () => {
+      // Arrange
+      name.nativeElement.value = 'John';
+      name.nativeElement.dispatchEvent(new Event('input'));
+      email.nativeElement.value = 'john.doe@acme.com';
+      email.nativeElement.dispatchEvent(new Event('input'));
+      password.nativeElement.value = 'Azerty!!!1';
+      password.nativeElement.dispatchEvent(new Event('input'));
+      confirmPassword.nativeElement.value = 'Azerty!!!1';
+      confirmPassword.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      // Act
+      button.nativeElement.click();
+      fixture.detectChanges();
+    
+      // Assert
+      expect(registerUseCase.execute).toHaveBeenCalledTimes(1);
+      expect(registerUseCase.execute).toHaveBeenCalledWith({
+        name: 'John',
+        email: 'john.doe@acme.com',
+        password: 'Azerty!!!1',
+      });
+    });
+  });
+
+  describe('when user submit an invalid signup form', () => {
+    it('should not call register use case', () => {
+      // Arrange
+      email.nativeElement.value = 'invlid-email';
+      email.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      // Act
+      button.nativeElement.click();
+      fixture.detectChanges();
+    
+      // Assert
+      expect(registerUseCase.execute).not.toHaveBeenCalled();
     });
   });
 
