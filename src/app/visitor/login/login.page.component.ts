@@ -16,7 +16,7 @@ export class LoginPageComponent {
   readonly invalidCredentialError = signal<InvalidCredentialError|null>(null);
 
   onSubmit() {
-    this.#loginUserUseCase.exectute(this.email(), this.password()).catch(error => {
+    this.#loginUserUseCase.execute(this.email(), this.password()).catch(error => {
       if(error instanceof InvalidCredentialError) {
         this.invalidCredentialError.set(error);
       }
