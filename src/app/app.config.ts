@@ -17,7 +17,6 @@ export const appConfig: ApplicationConfig = {
         inject(AuthenticationService),
         inject(UserService),
         inject(UserStore),
-        inject(Router)
       )();
     }),
   ],
