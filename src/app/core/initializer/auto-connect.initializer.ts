@@ -28,7 +28,6 @@ export function initializeAutoConnectFactory(
      .subscribe({
         next: (user) => {
           userStore.load(user);      
-          router.navigate(['/app/dashboard']);
           observer.complete();
         },
         error: () => {
