@@ -11,42 +11,42 @@ import { SettingsPageComponent } from './membership/settings/settings.page.compo
 export const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent,
     title: 'Productivity Planner',
+    loadComponent: () => import('./visitor/home/home.page.component').then(c => c.HomePageComponent),
   },
   {
     path: 'login',
-    component: LoginPageComponent,
+    loadComponent: () => import('./visitor/login/login.page.component').then(c => c.LoginPageComponent),
     title: 'Login'
   },
   {
     path: 'signup',
-    component: SignupPageComponent,
+    loadComponent: () => import('./visitor/signup/signup.page.component').then(c => c.SignupPageComponent),
     title: 'Signup',
   },
   {
     path: 'app/dashboard',
-    component: DashboardPageComponent,
+    loadComponent: () => import('./membership/dashboard/dashboard.page.component').then(c => c.DashboardPageComponent),
     title: 'Dashboard',
   },
   {
     path: 'app/planning',
-    component: PlanningPageComponent,
+    loadComponent: () => import('./membership/planning/planning.page.component').then(c => c.PlanningPageComponent),
     title: 'Planning',
   },
   {
     path: 'app/workday',
-    component: WorkdayPageComponent,
+    loadComponent: () => import('./membership/workday/workday.page.component').then(c => c.WorkdayPageComponent),
     title: 'Workday',
   },
   {
     path: 'app/profile',
-    component: ProfilePageComponent,
+    loadComponent: () => import('./membership/profile/profile.page.component').then(c => c.ProfilePageComponent),
     title: 'Profile',
   },
   {
     path: 'app/settings',
-    component: SettingsPageComponent,
+    loadComponent: () => import('./membership/settings/settings.page.component').then(c => c.SettingsPageComponent),
     title: 'Settings',
   },
 ];
