@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+}
+
+.content {
+    overflow-y: auto;
+    background-color: #fff;
+}
