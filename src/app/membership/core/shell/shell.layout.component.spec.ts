@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShellLayoutComponent } from './shell.layout.component';
+import { provideRouter, RouterOutlet } from '@angular/router';
 
 describe('ShellLayoutComponent', () => {
   let component: ShellLayoutComponent;
@@ -8,7 +9,8 @@ describe('ShellLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShellLayoutComponent]
+      imports: [ShellLayoutComponent, RouterOutlet],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
