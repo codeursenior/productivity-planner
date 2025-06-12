@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { BookSearchStore } from './workday.page.store';
+import { Component, inject } from '@angular/core';
+import { WorkdayStore } from './workday.page.store';
 
 @Component({
   imports: [],
   templateUrl: './workday.page.component.html',
   styleUrl: './workday.page.component.scss',
-  providers: [BookSearchStore]
-
+  providers: [WorkdayStore]
 })
 export class WorkdayPageComponent {
-
+  readonly store = inject(WorkdayStore);
 }
