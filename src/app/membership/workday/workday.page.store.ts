@@ -1,4 +1,5 @@
-import { signalStore, withState } from '@ngrx/signals';
+import { computed } from '@angular/core';
+import { signalStore, withComputed, withState } from '@ngrx/signals';
 
 interface Pomodoro {
   status: 'Not started' | 'In progress' | 'Done';
@@ -44,4 +45,14 @@ const initialState: WorkdayState = {
   ],
 };
 
-export const BookSearchStore = signalStore(withState(initialState));
+export const WorkdayStore = signalStore(
+  withState<WorkdayState>(initialState),
+  withComputed((store) => {
+  const getMostImportantTask = computed(
+    () => store.taskList()[0]
+  );
+
+  return { getMostImportantTask };
+}),
+
+);
