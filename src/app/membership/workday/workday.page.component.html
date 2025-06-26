@@ -14,23 +14,33 @@
   </div>
 
   <!-- Tâche la plus importante -->
+  @for(task of store.taskList(); track $index) {
+  @if($index === 0) {
   <h6 class="mb-3 text-muted">Most important task</h6>
+  }
+  @if($index === 1) {
+  <h6 class="mb-3 text-muted">Tâches de seconde importance</h6>
+  }
+  @if($index === 3) {
+  <h6 class="mb-3 text-muted">Tâches restantes</h6>
+  }
+
   <div class="card p-3 mb-3">
     <div class="d-flex align-items-center">
       <select class="form-select w-auto me-3">
         <option selected>⛳️</option>
         <option>🎯</option>
       </select>
-      <span class="flex-grow-1 fs-5">{{ store.taskList()[0]?.title }}</span>
+      <span class="flex-grow-1 fs-5">{{ task.title }}</span>
 
       <!-- Timer controls -->
       <div class="d-flex align-items-center ms-3">
         <select class="form-select w-auto me-3">
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <option selected>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
         </select>
         <button class="btn btn-sm">⏸</button>
         <button class="btn btn-sm">⏸</button>
@@ -42,142 +52,7 @@
       </div>
     </div>
   </div>
-
-  <!-- Tâches de seconde importance -->
-   <h6 class="mb-3 text-muted">Tâches de seconde importance</h6>
-  <div class="card p-3 mb-3">
-    <div class="d-flex align-items-center">
-            <select class="form-select w-auto me-3">
-        <option selected>⛳️</option>
-        <option>🎯</option>
-      </select>
-      <span class="flex-grow-1 fs-5">Tâche n°2</span>
-
-      <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3">
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <span class="mx-3 fs-5">0</span>
-        <span>🔒</span>
-      </div>
-    </div>
-  </div>
-  <div class="card p-3 mb-3">
-    <div class="d-flex align-items-center">
-            <select class="form-select w-auto me-3">
-        <option selected>⛳️</option>
-        <option>🎯</option>
-      </select>
-      <span class="flex-grow-1 fs-5">Tâche n°3</span>
-
-      <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3">
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <span class="mx-3 fs-5">0</span>
-        <span>🔒</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tâches restantes -->
-  <h6 class="mb-3 text-muted">Tâches restantes</h6>
-    <div class="card p-3 mb-3">
-    <div class="d-flex align-items-center">
-      <select class="form-select w-auto me-3">
-        <option selected>⛳️</option>
-        <option>🎯</option>
-      </select>
-      <span class="flex-grow-1 fs-5">Tâche n°4</span>
-
-      <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3">
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <span class="mx-3 fs-5">0</span>
-        <span>🔒</span>
-      </div>
-    </div>
-  </div>
-    <div class="card p-3 mb-3">
-    <div class="d-flex align-items-center">
-            <select class="form-select w-auto me-3">
-        <option selected>⛳️</option>
-        <option>🎯</option>
-      </select>
-      <span class="flex-grow-1 fs-5">Tâche n°5</span>
-
-      <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3">
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <span class="mx-3 fs-5">0</span>
-        <span>🔒</span>
-      </div>
-    </div>
-  </div>
-    <div class="card p-3 mb-3">
-    <div class="d-flex align-items-center">
-            <select class="form-select w-auto me-3">
-        <option selected>⛳️</option>
-        <option>🎯</option>
-      </select>
-      <span class="flex-grow-1 fs-5">Tâche n°6</span>
-
-      <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3">
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <span class="mx-3 fs-5">0</span>
-        <span>🔒</span>
-      </div>
-    </div>
-  </div>
+  }
 
   <!-- Ajouter une tâche -->
   <div class="text-center">
