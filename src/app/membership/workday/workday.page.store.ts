@@ -1,16 +1,13 @@
-import { computed } from '@angular/core';
-import { signalStore, withComputed, withState } from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
 interface Pomodoro {
   status: 'Not started' | 'In progress' | 'Done';
+  currentTime: number;
+  duration: number;
+  isCompleted: boolean;
 }
 
-type PomodoroList =
-  | [Pomodoro]
-  | [Pomodoro, Pomodoro]
-  | [Pomodoro, Pomodoro, Pomodoro]
-  | [Pomodoro, Pomodoro, Pomodoro, Pomodoro]
-  | [Pomodoro, Pomodoro, Pomodoro, Pomodoro, Pomodoro];
+type PomodoroList = Pomodoro[];
 
 interface Task {
   type: 'Hit the target' | 'Get things done';
@@ -19,39 +16,39 @@ interface Task {
   pomodoroList: PomodoroList;
 }
 
-type TaskList =
-  | [Task]
-  | [Task, Task]
-  | [Task, Task, Task]
-  | [Task, Task, Task, Task]
-  | [Task, Task, Task, Task, Task]
-  | [Task, Task, Task, Task, Task, Task];
+type TaskList = Task[];
 
 interface WorkdayState {
   date: string;
   taskList: TaskList;
 }
 
-const initialState: WorkdayState = {
-  date: '',
-  taskList: [
+const getEmptyTask = (): Task => ({
+  type: 'Hit the target',
+  title: 'Nouvelle tâche',
+  pomodoroCount: 1,
+  pomodoroList: [
     {
-      type: 'Hit the target',
-      title: 'Nouvelle tâche',
-      pomodoroCount: 1,
-      pomodoroList: [{ status: 'Not started' }],
+      status: 'Not started',
+      currentTime: 0,
+      duration: 1500,
+      isCompleted: false,
     },
   ],
+});
+
+const initialState: WorkdayState = {
+  date: '',
+  taskList: [getEmptyTask()],
 };
 
 export const WorkdayStore = signalStore(
   withState<WorkdayState>(initialState),
-  withComputed((store) => {
-    const mostImportantTask = computed(
-      () => store.taskList()[0]
-    );
-
-    return { mostImportantTask };
-}),
-
+  withMethods((store) => ({
+    onAddTask() {
+      patchState(store, (state) => ({
+        taskList: [...state.taskList, getEmptyTask()],
+      }));
+    },
+  }))
 );
