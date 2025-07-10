@@ -1,8 +1,8 @@
+import { DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { SignupPageComponent } from './signup.page.component';
 import { RegisterUserUseCase } from './domain/register-user.use-case';
+import { SignupPageComponent } from './signup.page.component';
 
 describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
@@ -18,7 +18,7 @@ describe('SignupPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SignupPageComponent],
-      providers: [
+      providers: [provideZonelessChangeDetection(), 
         { provide: RegisterUserUseCase, useValue: { execute: jest.fn().mockReturnValue(Promise.resolve()) } }
       ]
     })

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideZonelessChangeDetection } from '@angular/core';
 import { PlanningPageComponent } from './planning.page.component';
 
 describe('PlanningPageComponent', () => {
@@ -8,7 +9,8 @@ describe('PlanningPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlanningPageComponent]
+      imports: [PlanningPageComponent],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 
