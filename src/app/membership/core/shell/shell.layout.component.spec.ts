@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShellLayoutComponent } from './shell.layout.component';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, RouterOutlet } from '@angular/router';
+import { ShellLayoutComponent } from './shell.layout.component';
 
 describe('ShellLayoutComponent', () => {
   let component: ShellLayoutComponent;
@@ -10,7 +11,7 @@ describe('ShellLayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ShellLayoutComponent, RouterOutlet],
-      providers: [provideRouter([])]
+      providers: [provideZonelessChangeDetection(), provideRouter([])]
     })
     .compileComponents();
 

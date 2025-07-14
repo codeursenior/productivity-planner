@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvalidCredentialError } from './domain/invalid-credential.error';
 import { LoginUserUseCase } from './domain/login-user.use-case';
@@ -6,7 +6,8 @@ import { LoginUserUseCase } from './domain/login-user.use-case';
 @Component({
   imports: [FormsModule],
   templateUrl: './login.page.component.html',
-  styleUrl: './login.page.component.scss'
+  styleUrl: './login.page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
   readonly #loginUserUseCase = inject(LoginUserUseCase);

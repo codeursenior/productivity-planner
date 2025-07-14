@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ProfilePageComponent } from './profile.page.component';
 
 describe('ProfilePageComponent', () => {
@@ -8,7 +9,8 @@ describe('ProfilePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfilePageComponent]
+      imports: [ProfilePageComponent],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 
