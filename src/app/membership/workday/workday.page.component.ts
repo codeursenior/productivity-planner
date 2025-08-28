@@ -5,7 +5,7 @@ import { WorkdayStore } from './workday.page.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './workday.page.component.html',
   styleUrl: './workday.page.component.scss',
-  providers: [WorkdayStore]
+  providers: [WorkdayStore],
 })
 export class WorkdayPageComponent {
   readonly store = inject(WorkdayStore);
