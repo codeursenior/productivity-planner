@@ -7,12 +7,14 @@ describe('WorkdayPageComponent', () => {
   let component: WorkdayPageComponent;
   let fixture: ComponentFixture<WorkdayPageComponent>;
 
+  const getAddTaskButton = () =>
+    fixture.nativeElement.querySelector('[data-test=add-task-button]');
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [WorkdayPageComponent],
-      providers: [provideZonelessChangeDetection()]
-    })
-    .compileComponents();
+      providers: [provideZonelessChangeDetection()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WorkdayPageComponent);
     component = fixture.componentInstance;
@@ -21,5 +23,27 @@ describe('WorkdayPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('when there is less than 6 tasks planned for the current day', () => {
+    it('sould display "Add task" button', () => {
+      const button = getAddTaskButton();
+      expect(button).toBeDefined();
+    });
+  });
+
+  describe('when there is 6 tasks planned for the current day', () => {
+    beforeEach(() => {
+      component.store.onAddTask();
+      component.store.onAddTask();
+      component.store.onAddTask();
+      component.store.onAddTask();
+      component.store.onAddTask();
+      fixture.detectChanges();
+    });
+    it('sould display "Add task" button', () => {
+      const button = getAddTaskButton();
+      expect(button).toBeNull();
+    });
   });
 });
