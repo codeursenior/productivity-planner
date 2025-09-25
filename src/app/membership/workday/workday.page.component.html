@@ -4,7 +4,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
       <h6 class="mb-2">Working Day</h6>
-      <input type="date" class="form-control" value="2019-02-28" />
+      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" />
     </div>
     <div class="col-md-4 text-end mt-3 mt-md-0">
       <button class="btn btn-success rounded-pill px-4 py-2 fw-bold">
@@ -27,20 +27,20 @@
 
   <div class="card p-3 mb-3">
     <div class="d-flex align-items-center">
-      <select class="form-select w-auto me-3">
-        <option selected>⛳️</option>
-        <option>🎯</option>
+      <select class="form-select w-auto me-3" (change)="store.updateTaskType($index, $event)">
+        <option selected value="Get things done">⛳️</option>
+        <option value="Hit the target">🎯</option>
       </select>
-      <input class="flex-grow-1 fs-5" [value]="task.title" />
+      <input class="flex-grow-1 fs-5" [value]="task.title" (input)="store.updateTaskTitle($index, $event)" />
 
       <!-- Timer controls -->
       <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3">
-          <option selected>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+        <select class="form-select w-auto me-3" (change)="store.updateTaskPomodoroCount($index, $event) ">
+          <option selected value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
         <button class="btn btn-sm">⏸</button>
         <button class="btn btn-sm">⏸</button>
