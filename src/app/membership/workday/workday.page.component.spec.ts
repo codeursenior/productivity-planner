@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { WorkdayPageComponent } from './workday.page.component';
 
 describe('WorkdayPageComponent', () => {
@@ -8,7 +8,7 @@ describe('WorkdayPageComponent', () => {
   let fixture: ComponentFixture<WorkdayPageComponent>;
 
   const getAddTaskButton = () =>
-    fixture.nativeElement.querySelector('[data-testid=add-task-button]');
+    fixture.debugElement.query(By.css('[data-testid="add-task-button"]'));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -35,28 +35,29 @@ describe('WorkdayPageComponent', () => {
     });
   });
 
-  describe('when user remove a task', () => {
-    it('should remove corresponding task', () => {
-      // Arrange
-      - Ajouter 3 tâches 
-      - Modifier les titres des 3 tâches : tache 1, tache 2, tache 3
+  // describe('when user remove a task', () => {
+  //   it('should remove corresponding task', () => {
+  //     // Arrange
+  //     - Ajouter 3 tâches
+  //     - Modifier les titres des 3 tâches : tache 1, tache 2, tache 3
 
-      // Act 
-      - Click sur remove de la tâche n°2
-      - Rerécupérer la task à $index2 
+  //     // Act
+  //     - Click sur remove de la tâche n°2
+  //     - Rerécupérer la task à $index2
 
-      // Assert 
-      - Vérifier que son nom doit être tache 3
-    });
-  });
+  //     // Assert
+  //     - Vérifier que son nom doit être tache 3
+  //   });
+  // });
 
   describe('when there is 6 tasks planned for the current day', () => {
     beforeEach(() => {
-      component.store.onAddTask();
-      component.store.onAddTask();
-      component.store.onAddTask();
-      component.store.onAddTask();
-      component.store.onAddTask();
+      const button = getAddTaskButton();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
       fixture.detectChanges();
     });
     it('sould hide "Add task" button', () => {
