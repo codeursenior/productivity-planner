@@ -23,7 +23,8 @@
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
 
-  <div class="card p-3 mb-3">
+  <!-- Task  -->
+  <div class="card p-3 mb-3" [attr.data-testid]="`task${$index}`">
     <div class="d-flex align-items-center">
       <select class="form-select w-auto me-3" (change)="store.updateTaskType($index, $event)">
         <option selected value="Get things done">⛳️</option>
@@ -59,7 +60,7 @@
 
   <div class="text-center">
     @if(store.isButtonDisplayed()) {
-    <button data-test="add-task-button" class="btn btn-link text-muted" (click)="store.onAddTask()">Ajouter une
+    <button data-testid="add-task-button" class="btn btn-link text-muted" (click)="store.onAddTask()">Ajouter une
       tâche</button>
     }
   </div>

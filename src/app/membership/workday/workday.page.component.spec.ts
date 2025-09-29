@@ -8,7 +8,7 @@ describe('WorkdayPageComponent', () => {
   let fixture: ComponentFixture<WorkdayPageComponent>;
 
   const getAddTaskButton = () =>
-    fixture.nativeElement.querySelector('[data-test=add-task-button]');
+    fixture.nativeElement.querySelector('[data-testid=add-task-button]');
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -25,10 +25,28 @@ describe('WorkdayPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('when there is less than 6 tasks planned for the current day', () => {
+  describe('when workday page load', () => {
+    it('sould display one task', () => {
+      expect(component.store.taskCount()).toBe(1);
+    });
     it('sould display "Add task" button', () => {
       const button = getAddTaskButton();
       expect(button).toBeDefined();
+    });
+  });
+
+  describe('when user remove a task', () => {
+    it('should remove corresponding task', () => {
+      // Arrange
+      - Ajouter 3 tâches 
+      - Modifier les titres des 3 tâches : tache 1, tache 2, tache 3
+
+      // Act 
+      - Click sur remove de la tâche n°2
+      - Rerécupérer la task à $index2 
+
+      // Assert 
+      - Vérifier que son nom doit être tache 3
     });
   });
 
