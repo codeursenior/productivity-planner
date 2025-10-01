@@ -1,5 +1,4 @@
 <div class="container my-5">
-  <!-- Header avec date centrée et bouton à droite -->
   <div class="row align-items-center mb-4">
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
@@ -13,7 +12,6 @@
     </div>
   </div>
 
-  <!-- Tâche la plus importante -->
   @for(task of store.taskList(); track $index) {
   @if($index === 0) {
   <h6 class="mb-3 text-muted">Most important task</h6>
@@ -25,15 +23,16 @@
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
 
-  <div class="card p-3 mb-3">
+  <!-- Task  -->
+  <div class="card p-3 mb-3" [attr.data-testid]="`task-${$index}`">
     <div class="d-flex align-items-center">
       <select class="form-select w-auto me-3" (change)="store.updateTaskType($index, $event)">
         <option selected value="Get things done">⛳️</option>
         <option value="Hit the target">🎯</option>
       </select>
-      <input class="flex-grow-1 fs-5" [value]="task.title" (input)="store.updateTaskTitle($index, $event)" />
+      <input class="form-control flex-grow-1 fs-5 border-0" [value]="task.title"
+        (input)="store.updateTaskTitle($index, $event)" [attr.data-testid]="`task-input-${$index}`" />
 
-      <!-- Timer controls -->
       <div class="d-flex align-items-center ms-3">
         <select class="form-select w-auto me-3" (change)="store.updateTaskPomodoroCount($index, $event) ">
           <option selected value="1">1</option>
@@ -50,14 +49,19 @@
         <span class="mx-3 fs-5">0</span>
         <span>🏁</span>
       </div>
+
+      <button class="btn btn-link text-muted ms-3" [attr.data-testid]="`task-remove-${$index}`"
+        (click)="store.removeTask($index)">
+        <i class="bi bi-x fs-4"></i>
+      </button>
+
     </div>
   </div>
   }
 
-  <!-- Ajouter une tâche -->
   <div class="text-center">
     @if(store.isButtonDisplayed()) {
-    <button data-test="add-task-button" class="btn btn-link text-muted" (click)="store.onAddTask()">Ajouter une
+    <button data-testid="add-task-button" class="btn btn-link text-muted" (click)="store.onAddTask()">Ajouter une
       tâche</button>
     }
   </div>
