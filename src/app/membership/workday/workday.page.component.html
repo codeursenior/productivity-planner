@@ -12,6 +12,13 @@
     </div>
   </div>
 
+  @if(store.hasNoTaskPlanned()) {
+  <div class="text-center my-5" data-testid="inbox-zero-placeholder">
+    <img src="images/productivity-planner-inbox-zero.gif" alt="Inbox zero" class="img-fluid mx-auto" />
+    <p class="mt-3 text-muted">Aucune tâche prévue pour aujourd'hui</p>
+  </div>
+  }
+
   @for(task of store.taskList(); track $index) {
   @if($index === 0) {
   <h6 class="mb-3 text-muted">Most important task</h6>
