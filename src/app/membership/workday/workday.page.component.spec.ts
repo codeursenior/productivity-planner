@@ -9,6 +9,8 @@ describe('WorkdayPageComponent', () => {
 
   const getAddTaskButton = () =>
     fixture.debugElement.query(By.css('[data-testid="add-task-button"]'));
+  const getStartWorkdayButton = () =>
+    fixture.debugElement.query(By.css('[data-testid="start-workday-button"]'));
   /* Get task by position instead of index: getTask(1) <=> task at index 0. */
   const getTask = (id: number) =>
     fixture.debugElement.query(By.css(`[data-testid="task-${id - 1}"]`));
@@ -54,6 +56,10 @@ describe('WorkdayPageComponent', () => {
     });
     it('should hide inbox zero placeholder', () => {
       expect(getInboxZeroPlaceholder()).toBeNull();
+    });
+    it('sould display "Start workday" button', () => {
+      const button = getStartWorkdayButton();
+      expect(button).toBeTruthy();
     });
   });
 
@@ -103,6 +109,10 @@ describe('WorkdayPageComponent', () => {
 
     it('should display inbox zero placeholder', () => {
       expect(getInboxZeroPlaceholder()).toBeTruthy();
+    });
+    it('sould hide "Start workday" button', () => {
+      const button = getStartWorkdayButton();
+      expect(button).toBeNull();
     });
   });
 });

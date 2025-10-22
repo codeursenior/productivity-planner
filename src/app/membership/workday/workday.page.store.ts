@@ -56,8 +56,14 @@ export const WorkdayStore = signalStore(
     const taskCount = computed(() => state.taskList().length);
     const isButtonDisplayed = computed(() => taskCount() < WORKDAY_TASK_LIMIT);
     const hasNoTaskPlanned = computed(() => taskCount() === 0);
+    const hasTaskPlanned = computed(() => taskCount() > 0);
 
-    return { taskCount, isButtonDisplayed, hasNoTaskPlanned };
+    return {
+      taskCount,
+      isButtonDisplayed,
+      hasNoTaskPlanned,
+      hasTaskPlanned,
+    };
   }),
   withMethods((store) => ({
     onAddTask() {
