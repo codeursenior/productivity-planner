@@ -9,6 +9,8 @@ describe('WorkdayPageComponent', () => {
 
   const getAddTaskButton = () =>
     fixture.debugElement.query(By.css('[data-testid="add-task-button"]'));
+  const getStartWorkdayButton = () =>
+    fixture.debugElement.query(By.css('[data-testid="start-workday-button"]'));
   /* Get task by position instead of index: getTask(1) <=> task at index 0. */
   const getTask = (id: number) =>
     fixture.debugElement.query(By.css(`[data-testid="task-${id - 1}"]`));
@@ -16,6 +18,11 @@ describe('WorkdayPageComponent', () => {
     fixture.debugElement.query(By.css(`[data-testid="task-input-${id - 1}"]`));
   const getRemoveTaskButton = (id: number) =>
     fixture.debugElement.query(By.css(`[data-testid="task-remove-${id - 1}"]`));
+  const getInboxZeroPlaceholder = () =>
+    fixture.debugElement.query(
+      By.css('[data-testid="inbox-zero-placeholder"]')
+    );
+
   const setTaskTitle = (id: number, title: string) => {
     const input = getTaskInput(id).nativeElement as HTMLInputElement;
     input.value = title;
@@ -38,13 +45,20 @@ describe('WorkdayPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('when workday page load', () => {
+  describe('when empty workday page load', () => {
     it('sould display one task', () => {
       expect(getTask(1)).toBeTruthy();
       expect(getTask(2)).toBeNull();
     });
     it('sould display "Add task" button', () => {
       const button = getAddTaskButton();
+      expect(button).toBeTruthy();
+    });
+    it('should hide inbox zero placeholder', () => {
+      expect(getInboxZeroPlaceholder()).toBeNull();
+    });
+    it('sould display "Start workday" button', () => {
+      const button = getStartWorkdayButton();
       expect(button).toBeTruthy();
     });
   });
@@ -83,6 +97,21 @@ describe('WorkdayPageComponent', () => {
     });
     it('sould hide "Add task" button', () => {
       const button = getAddTaskButton();
+      expect(button).toBeNull();
+    });
+  });
+
+  describe('when no task is planned', () => {
+    beforeEach(() => {
+      getRemoveTaskButton(1).nativeElement.click();
+      fixture.detectChanges();
+    });
+
+    it('should display inbox zero placeholder', () => {
+      expect(getInboxZeroPlaceholder()).toBeTruthy();
+    });
+    it('sould hide "Start workday" button', () => {
+      const button = getStartWorkdayButton();
       expect(button).toBeNull();
     });
   });
