@@ -12,6 +12,10 @@ import { PomodoroCount, Task, TaskType } from '../workday.page.store';
   templateUrl: './task-field.dumb.component.html',
   styleUrl: './task-field.dumb.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'card',
+    '[attr.data-testid]': '`task-${index()}`',
+  },
 })
 export class TaskFieldDumbComponent {
   readonly task = model.required<Task>();
