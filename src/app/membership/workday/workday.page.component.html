@@ -31,7 +31,7 @@
   @if($index === 3) {
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
-  <app-task-field [task]="task" [index]="$index" (taskUpdated)="store.updateTask($index, task)"
+  <app-task-field [task]="task" [index]="$index" (taskUpdated)="store.updateTask($index, $event)"
     (taskRemoved)="store.removeTask($index)" />
   }
 
