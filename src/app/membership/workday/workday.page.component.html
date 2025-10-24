@@ -31,46 +31,13 @@
   @if($index === 3) {
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
-
-  <!-- Task  -->
-  <div class="card p-3 mb-3" [attr.data-testid]="`task-${$index}`">
-    <div class="d-flex align-items-center">
-      <select class="form-select w-auto me-3" (change)="store.updateTaskType($index, $event)">
-        <option selected value="Get things done">⛳️</option>
-        <option value="Hit the target">🎯</option>
-      </select>
-      <input class="form-control flex-grow-1 fs-5 border-0" [value]="task.title"
-        (input)="store.updateTaskTitle($index, $event)" [attr.data-testid]="`task-input-${$index}`" />
-
-      <div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3" (change)="store.updateTaskPomodoroCount($index, $event) ">
-          <option selected value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <button class="btn btn-sm">⏸</button>
-        <span class="mx-3 fs-5">0</span>
-        <span>🏁</span>
-      </div>
-
-      <button class="btn btn-link text-muted ms-3" [attr.data-testid]="`task-remove-${$index}`"
-        (click)="store.removeTask($index)">
-        <i class="bi bi-x fs-4"></i>
-      </button>
-
-    </div>
-  </div>
+  <app-task-field [task]="task" [index]="$index" (taskUpdated)="store.updateTask($index, $event)"
+    (taskRemoved)="store.removeTask($index)" />
   }
 
   <div class="text-center">
     @if(store.isButtonDisplayed()) {
-    <button data-testid="add-task-button" class="btn btn-link text-muted" (click)="store.onAddTask()">Ajouter une
+    <button data-testid="add-task-button" class="btn btn-link text-muted" (click)="store.addTask()">Ajouter une
       tâche</button>
     }
   </div>
