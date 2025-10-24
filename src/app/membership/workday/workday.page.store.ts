@@ -15,9 +15,9 @@ interface Pomodoro {
 }
 
 type PomodoroList = Pomodoro[];
-type TaskType = 'Hit the target' | 'Get things done';
-type PomodoroCount = 1 | 2 | 3 | 4 | 5;
-interface Task {
+export type TaskType = 'Hit the target' | 'Get things done';
+export type PomodoroCount = 1 | 2 | 3 | 4 | 5;
+export interface Task {
   type: TaskType;
   title: string;
   pomodoroCount: PomodoroCount;
@@ -66,7 +66,7 @@ export const WorkdayStore = signalStore(
     };
   }),
   withMethods((store) => ({
-    onAddTask() {
+    addTask() {
       patchState(store, (state) => ({
         taskList: [...state.taskList, getEmptyTask()],
       }));
@@ -80,32 +80,13 @@ export const WorkdayStore = signalStore(
       const date = (event.target as HTMLInputElement).value;
       patchState(store, () => ({ date }));
     },
-    updateTaskType($index: number, event: Event) {
-      const type = (event.target as HTMLSelectElement).value as TaskType;
-
+    updateTask(index: number, updatedTask: Task) {
       patchState(store, (state) => {
-        const task: Task = { ...state.taskList[$index], type };
-        const taskList: TaskList = state.taskList.toSpliced($index, 1, task);
-        return { taskList };
-      });
-    },
-    updateTaskTitle($index: number, event: Event) {
-      const title = (event.target as HTMLInputElement).value;
-
-      patchState(store, (state) => {
-        const task: Task = { ...state.taskList[$index], title };
-        const taskList: TaskList = state.taskList.toSpliced($index, 1, task);
-        return { taskList };
-      });
-    },
-    updateTaskPomodoroCount($index: number, event: Event) {
-      const pomodoroCount = Number(
-        (event.target as HTMLSelectElement).value
-      ) as PomodoroCount;
-
-      patchState(store, (state) => {
-        const task: Task = { ...state.taskList[$index], pomodoroCount };
-        const taskList: TaskList = state.taskList.toSpliced($index, 1, task);
+        const taskList: TaskList = state.taskList.toSpliced(
+          index,
+          1,
+          updatedTask
+        );
         return { taskList };
       });
     },
