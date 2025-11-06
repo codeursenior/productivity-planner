@@ -5,7 +5,6 @@ import { WorkdayStore } from './workday.page.store';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './workday.page.component.html',
-  styleUrl: './workday.page.component.scss',
   imports: [TaskFieldDumbComponent],
   providers: [WorkdayStore],
 })

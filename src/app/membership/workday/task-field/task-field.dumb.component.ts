@@ -10,7 +10,6 @@ import { PomodoroCount, Task, TaskType } from '../workday.page.store';
 @Component({
   selector: 'app-task-field',
   templateUrl: './task-field.dumb.component.html',
-  styleUrl: './task-field.dumb.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'card',
