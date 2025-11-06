@@ -1,13 +1,14 @@
 <div class="container my-5">
+  <pre>{{ store.mode() }}</pre>
   <div class="row align-items-center mb-4">
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
       <h6 class="mb-2">Working Day</h6>
       <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" />
     </div>
-    @if(store.hasTaskPlanned()) {
+    @if(store.hasTaskPlanned() && store.isEditMode()) {
     <div class="col-md-4 text-end mt-3 mt-md-0" data-testid="start-workday-button">
-      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold">
+      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" (click)="store.startworkday()">
         Start the work day
       </button>
     </div>
