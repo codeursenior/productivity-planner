@@ -29,7 +29,7 @@ type TaskList = Task[];
 interface WorkdayState {
   date: string;
   taskList: TaskList;
-  progresss: number;
+  progress: number;
   mode: 'edit' | 'execution';
 }
 
@@ -53,7 +53,7 @@ export const WorkdayStore = signalStore(
   withState<WorkdayState>({
     date: '2019-02-28',
     taskList: [getEmptyTask()],
-    progresss: 0,
+    progress: 0,
     mode: 'edit',
   }),
   withComputed((state) => {

@@ -4,7 +4,19 @@
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
       <h6 class="mb-2">Working Day</h6>
-      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" />
+      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)"
+        [disabled]="store.isExecutionMode()" />
+      @if(store.isExecutionMode()) {
+      <div class="d-flex flex-column align-items-center mt-2">
+        <div class="progress w-100" style="height: 1rem;" data-testid="workday-progress">
+          <div class="progress-bar bg-success" role="progressbar" [style.width.%]="store.progress()"
+            aria-valuenow="{{store.progress()}}" aria-valuemin="0" aria-valuemax="100">
+            {{store.progress()}}%
+          </div>
+        </div>
+        <p class="small text-muted mt-2 text-center w-100">{{ store.progress() / 10 }} seconds have passed.</p>
+      </div>
+      }
     </div>
     @if(store.hasTaskPlanned() && store.isEditMode()) {
     <div class="col-md-4 text-end mt-3 mt-md-0" data-testid="start-workday-button">
