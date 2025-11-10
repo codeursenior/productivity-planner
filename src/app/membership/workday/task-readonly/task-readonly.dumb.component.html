@@ -1,1 +1,20 @@
-<p>task-readonly works!</p>
+<div class="d-flex align-items-center">
+    @if(task().type === 'Hit the target') {
+    <p class="w-auto me-3">🎯</p>
+    } @else {
+    <p class="w-auto me-3">✅</p>
+    }
+    <p class="form-control flex-grow-1 fs-5 border-0" [attr.data-testid]="`task-input-${index()}`">
+        {{ task().title }}
+    </p>
+    <div class="d-flex align-items-center ms-3">
+        <p class="w-auto me-3">{{ task().pomodoroCount }}</p>
+        <button class="btn btn-sm">⏸</button>
+        <button class="btn btn-sm">⏸</button>
+        <button class="btn btn-sm">⏸</button>
+        <button class="btn btn-sm">⏸</button>
+        <button class="btn btn-sm">⏸</button>
+        <span class="mx-3 fs-5">0</span>
+        <span>🔄</span>
+    </div>
+</div>

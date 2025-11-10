@@ -44,8 +44,14 @@
   @if($index === 3) {
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
+
+  @if(store.isEditMode()) {
   <app-task-field class="p-3 mb-3" [task]="task" [index]="$index" (taskUpdated)="store.updateTask($index, $event)"
     (taskRemoved)="store.removeTask($index)" />
+  }
+  @if(store.isExecutionMode()) {
+  <app-task-readonly [task]="task" [index]="$index" />
+  }
   }
 
   <div class="text-center">
