@@ -1,30 +1,24 @@
-import { computed } from '@angular/core';
+import { computed, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   patchState,
   signalStore,
   withComputed,
   withMethods,
+  withProps,
   withState,
 } from '@ngrx/signals';
-
-interface Pomodoro {
-  status: 'Not started' | 'In progress' | 'Done';
-  currentTime: number;
-  duration: number;
-  isCompleted: boolean;
-}
-
-type PomodoroList = Pomodoro[];
-export type TaskType = 'Hit the target' | 'Get things done';
-export type PomodoroCount = 1 | 2 | 3 | 4 | 5;
-export interface Task {
-  type: TaskType;
-  title: string;
-  pomodoroCount: PomodoroCount;
-  pomodoroList: PomodoroList;
-}
-
-type TaskList = Task[];
+import { Subject, takeUntil, timer } from 'rxjs';
+import {
+  getActivePomodoroIndex,
+  getActiveTask,
+  getActiveTaskIndex,
+  getTaskEmojiStatus,
+  isTaskCompleted,
+  MAXIMUM_POMODORO_DURATION,
+  Task,
+  TaskList,
+} from './task.model';
 
 interface WorkdayState {
   date: string;
@@ -36,15 +30,10 @@ interface WorkdayState {
 const getEmptyTask = (): Task => ({
   type: 'Hit the target',
   title: 'Nouvelle tâche',
+  status: 'Not started',
   pomodoroCount: 1,
-  pomodoroList: [
-    {
-      status: 'Not started',
-      currentTime: 0,
-      duration: 1500,
-      isCompleted: false,
-    },
-  ],
+  pomodoroList: [0],
+  statusEmoji: '🏁',
 });
 
 const WORKDAY_TASK_LIMIT = 6;
@@ -56,6 +45,10 @@ export const WorkdayStore = signalStore(
     progress: 0,
     mode: 'edit',
   }),
+  withProps(() => ({
+    destroyRef: inject(DestroyRef),
+    pomodoroCompleted: new Subject<void>(),
+  })),
   withComputed((state) => {
     const taskCount = computed(() => state.taskList().length);
     const isButtonDisplayed = computed(() => taskCount() < WORKDAY_TASK_LIMIT);
@@ -63,6 +56,9 @@ export const WorkdayStore = signalStore(
     const hasTaskPlanned = computed(() => taskCount() > 0);
     const isEditMode = computed(() => state.mode() === 'edit');
     const isExecutionMode = computed(() => state.mode() === 'execution');
+    const pomodoroProgress = computed(() => {
+      return Math.floor((state.progress() / MAXIMUM_POMODORO_DURATION) * 100);
+    });
 
     return {
       taskCount,
@@ -71,11 +67,59 @@ export const WorkdayStore = signalStore(
       hasTaskPlanned,
       isEditMode,
       isExecutionMode,
+      pomodoroProgress,
     };
   }),
-  withMethods((store) => ({
-    startworkday() {
+  withMethods(({ destroyRef, pomodoroCompleted, ...store }) => ({
+    startWorkday() {
       patchState(store, { mode: 'execution' });
+      console.log('Workday started!');
+      timer(0, 1000)
+        .pipe(takeUntil(pomodoroCompleted), takeUntilDestroyed(destroyRef))
+        .subscribe((elapsedSeconds: number) => {
+          console.log('elapsedSeconds', elapsedSeconds);
+
+          patchState(store, { progress: elapsedSeconds });
+
+          // Update current pomodoro time
+          const task = getActiveTask(store.taskList());
+          const taskIndex = getActiveTaskIndex(store.taskList());
+
+          if (!task) {
+            // TODO : No task planned OR all tasks completed
+            throw new Error('No active task found');
+          }
+
+          const pomodoroIndex = getActivePomodoroIndex(task);
+
+          if (pomodoroIndex === -1) {
+            throw new Error('No active pomodoro found');
+          }
+
+          task.pomodoroList[pomodoroIndex] = elapsedSeconds;
+          task.statusEmoji = getTaskEmojiStatus(task);
+
+          const taskList: TaskList = store
+            .taskList()
+            .toSpliced(taskIndex, 1, task);
+
+          patchState(store, { taskList });
+
+          // Check completed state
+          if (elapsedSeconds === MAXIMUM_POMODORO_DURATION) {
+            pomodoroCompleted.next();
+            patchState(store, { mode: 'edit' });
+            patchState(store, { progress: 0 });
+          }
+        });
+    },
+    isWorkdayCompleted(): boolean {
+      return store.taskList().every((task) => {
+        return isTaskCompleted(task);
+      });
+    },
+    isTaskCompleted(task: Task): boolean {
+      return isTaskCompleted(task);
     },
     addTask() {
       patchState(store, (state) => ({

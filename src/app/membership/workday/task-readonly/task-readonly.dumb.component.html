@@ -2,7 +2,7 @@
     @if(task().type === 'Hit the target') {
     <p class="w-auto me-3">🎯</p>
     } @else {
-    <p class="w-auto me-3">✅</p>
+    <p class="w-auto me-3">⛳</p>
     }
     <p class="form-control flex-grow-1 fs-5 border-0" [attr.data-testid]="`task-input-${index()}`">
         {{ task().title }}
@@ -15,6 +15,6 @@
         <button class="btn btn-sm">⏸</button>
         <button class="btn btn-sm">⏸</button>
         <span class="mx-3 fs-5">0</span>
-        <span>🔄</span>
+        <span>{{ task().statusEmoji }}</span>
     </div>
 </div>

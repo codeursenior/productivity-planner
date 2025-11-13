@@ -4,7 +4,7 @@ import {
   input,
   model,
 } from '@angular/core';
-import { Task } from '../workday.page.store';
+import { Task } from '../task.model';
 
 @Component({
   selector: 'app-task-readonly',
