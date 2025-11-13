@@ -5,7 +5,12 @@ import {
   model,
   output,
 } from '@angular/core';
-import { PomodoroCount, Task, TaskType } from '../task.model';
+import {
+  PomodoroCount,
+  Task,
+  TaskType,
+  createPomodoroList,
+} from '../task.model';
 
 @Component({
   selector: 'app-task-field',
@@ -33,9 +38,11 @@ export class TaskFieldDumbComponent {
   }
 
   updatePomodoroCount(pomodoroCount: string): void {
+    const count = Number(pomodoroCount) as PomodoroCount;
     const task: Task = {
       ...this.task(),
-      pomodoroCount: Number(pomodoroCount) as PomodoroCount,
+      pomodoroCount: count,
+      pomodoroList: createPomodoroList(count),
     };
     this.taskUpdated.emit(task);
   }

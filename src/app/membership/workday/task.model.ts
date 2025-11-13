@@ -84,6 +84,21 @@ export function getActivePomodoroIndex(task: Task): number | -1 {
   );
 }
 
+export function createPomodoroList(count: PomodoroCount): PomodoroList {
+  switch (count) {
+    case 1:
+      return [0];
+    case 2:
+      return [0, 0];
+    case 3:
+      return [0, 0, 0];
+    case 4:
+      return [0, 0, 0, 0];
+    case 5:
+      return [0, 0, 0, 0, 0];
+  }
+}
+
 /* View model methods */
 export function getTaskEmojiStatus(task: Task): string {
   if (isTaskCompleted(task)) {
