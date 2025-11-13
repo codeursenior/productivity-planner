@@ -16,6 +16,7 @@ import {
   getTaskEmojiStatus,
   isTaskCompleted,
   MAXIMUM_POMODORO_DURATION,
+  PomodoroList,
   Task,
   TaskList,
 } from './task.model';
@@ -81,7 +82,7 @@ export const WorkdayStore = signalStore(
 
           patchState(store, { progress: elapsedSeconds });
           patchState(store, (state) => {
-            // Update current pomodoro time
+            // Update current pomodoro time immutably so signals detect the change
             const task = getActiveTask(state.taskList);
             const taskIndex = getActiveTaskIndex(state.taskList);
 
@@ -95,12 +96,22 @@ export const WorkdayStore = signalStore(
               throw new Error('No active pomodoro found');
             }
 
-            task.pomodoroList[pomodoroIndex] = elapsedSeconds;
-            task.statusEmoji = getTaskEmojiStatus(task);
+            // Create a new pomodoro list and a new task object (immutable update)
+            const newPomodoroList = [...task.pomodoroList] as PomodoroList;
+            newPomodoroList[pomodoroIndex] = elapsedSeconds;
+
+            const updatedTask: Task = {
+              ...task,
+              pomodoroList: newPomodoroList,
+              statusEmoji: getTaskEmojiStatus({
+                ...task,
+                pomodoroList: newPomodoroList,
+              }),
+            };
 
             const taskList: TaskList = store
               .taskList()
-              .toSpliced(taskIndex, 1, task);
+              .toSpliced(taskIndex, 1, updatedTask);
 
             return { taskList };
           });

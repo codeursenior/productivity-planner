@@ -98,6 +98,24 @@ export function createPomodoroList(count: PomodoroCount): PomodoroList {
       return [0, 0, 0, 0, 0];
   }
 }
+export function getPomodoroEmojiStatus(pomodoro: number): string {
+  if (isPomodoroCompleted(pomodoro)) {
+    return '☑️';
+  }
+
+  if (isPomodoroInProgress(pomodoro)) {
+    return '🔄';
+  }
+
+  // Not started
+  return '⏸️';
+}
+
+export function getPomodoroListEmojiStatus(
+  pomodoroList: PomodoroList
+): string[] {
+  return pomodoroList.map((pomodoro) => getPomodoroEmojiStatus(pomodoro));
+}
 
 /* View model methods */
 export function getTaskEmojiStatus(task: Task): string {

@@ -1,10 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   input,
-  model,
 } from '@angular/core';
-import { Task } from '../task.model';
+import { getPomodoroListEmojiStatus, Task } from '../task.model';
 
 @Component({
   selector: 'app-task-readonly',
@@ -16,6 +17,16 @@ import { Task } from '../task.model';
   },
 })
 export class TaskReadonlyDumbComponent {
-  readonly task = model.required<Task>();
+  readonly task = input.required<Task>();
   readonly index = input.required<number>();
+
+  constructor() {
+    effect(() => {
+      console.log(this.task());
+    });
+  }
+
+  readonly pomodoroListEmojiStatus = computed(() => {
+    return getPomodoroListEmojiStatus(this.task().pomodoroList);
+  });
 }

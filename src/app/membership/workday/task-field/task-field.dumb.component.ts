@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
-  model,
   output,
 } from '@angular/core';
 import {
@@ -22,7 +21,7 @@ import {
   },
 })
 export class TaskFieldDumbComponent {
-  readonly task = model.required<Task>();
+  readonly task = input.required<Task>();
   readonly index = input.required<number>();
   readonly taskUpdated = output<Task>();
   readonly taskRemoved = output<void>();
