@@ -28,7 +28,7 @@ interface WorkdayState {
   mode: 'edit' | 'execution';
 }
 
-const getEmptyTask = (): Task => ({
+export const getEmptyTask = (): Task => ({
   type: 'Hit the target',
   title: 'Nouvelle tâche',
   status: 'Not started',
