@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   input,
 } from '@angular/core';
 import { getPomodoroListEmojiStatus, Task } from '../task.model';
@@ -19,12 +18,6 @@ import { getPomodoroListEmojiStatus, Task } from '../task.model';
 export class TaskReadonlyDumbComponent {
   readonly task = input.required<Task>();
   readonly index = input.required<number>();
-
-  constructor() {
-    effect(() => {
-      console.log(this.task());
-    });
-  }
 
   readonly pomodoroListEmojiStatus = computed(() => {
     return getPomodoroListEmojiStatus(this.task().pomodoroList);
