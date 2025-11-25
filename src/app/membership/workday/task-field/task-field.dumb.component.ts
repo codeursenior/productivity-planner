@@ -2,15 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
-  model,
   output,
 } from '@angular/core';
-import { PomodoroCount, Task, TaskType } from '../workday.page.store';
+import {
+  PomodoroCount,
+  Task,
+  TaskType,
+  createPomodoroList,
+} from '../task.model';
 
 @Component({
   selector: 'app-task-field',
   templateUrl: './task-field.dumb.component.html',
-  styleUrl: './task-field.dumb.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'card',
@@ -18,7 +21,7 @@ import { PomodoroCount, Task, TaskType } from '../workday.page.store';
   },
 })
 export class TaskFieldDumbComponent {
-  readonly task = model.required<Task>();
+  readonly task = input.required<Task>();
   readonly index = input.required<number>();
   readonly taskUpdated = output<Task>();
   readonly taskRemoved = output<void>();
@@ -34,9 +37,11 @@ export class TaskFieldDumbComponent {
   }
 
   updatePomodoroCount(pomodoroCount: string): void {
+    const count = Number(pomodoroCount) as PomodoroCount;
     const task: Task = {
       ...this.task(),
-      pomodoroCount: Number(pomodoroCount) as PomodoroCount,
+      pomodoroCount: count,
+      pomodoroList: createPomodoroList(count),
     };
     this.taskUpdated.emit(task);
   }

@@ -1,13 +1,27 @@
 <div class="container my-5">
+  <pre>{{ store.taskList() | json }}</pre>
   <div class="row align-items-center mb-4">
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
       <h6 class="mb-2">Working Day</h6>
-      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" />
+      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)"
+        [disabled]="store.isExecutionMode() || store.isWorkdayCompleted()" />
+      @if(store.isExecutionMode()) {
+      <div class="d-flex flex-column align-items-center mt-2">
+        <div class="progress w-100" data-testid="workday-progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+            [style.width.%]="store.pomodoroProgress()" aria-valuenow="{{store.pomodoroProgress()}}" aria-valuemin="0"
+            aria-valuemax="100">
+            {{store.pomodoroProgress()}}%
+          </div>
+        </div>
+        <p class="small text-muted mt-2 text-center w-100">{{ store.progress() }} seconds have passed.</p>
+      </div>
+      }
     </div>
-    @if(store.hasTaskPlanned()) {
+    @if(store.hasTaskPlanned() && store.isEditMode() && !store.isWorkdayCompleted()) {
     <div class="col-md-4 text-end mt-3 mt-md-0" data-testid="start-workday-button">
-      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold">
+      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" (click)="store.startWorkday()">
         Start the work day
       </button>
     </div>
@@ -31,8 +45,14 @@
   @if($index === 3) {
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
+
+  @if(store.isEditMode() && !store.isWorkdayCompleted() && !store.isTaskCompleted(task)) {
   <app-task-field class="p-3 mb-3" [task]="task" [index]="$index" (taskUpdated)="store.updateTask($index, $event)"
     (taskRemoved)="store.removeTask($index)" />
+  }
+  @if(store.isExecutionMode() || store.isWorkdayCompleted() || store.isTaskCompleted(task)) {
+  <app-task-readonly [task]="task" [index]="$index" />
+  }
   }
 
   <div class="text-center">
