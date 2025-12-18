@@ -95,8 +95,12 @@ export class Workday extends Entity<WorkdayProps> {
       throw new Error('Workday is already in execution mode.');
     }
 
-    this.props.mode = 'execution';
-    return this;
+    const newProps: WorkdayProps = {
+      ...this.props,
+      mode: 'execution',
+    };
+
+    return new Workday(newProps, this._id);
   }
 
   setEditMode(): Workday {
@@ -104,17 +108,28 @@ export class Workday extends Entity<WorkdayProps> {
       throw new Error('Workday is already in edit mode.');
     }
 
-    this.props.mode = 'edit';
-    return this;
+    const newProps: WorkdayProps = {
+      ...this.props,
+      mode: 'edit',
+    };
+
+    return new Workday(newProps, this._id);
   }
 
   addEmptyTask(): Workday {
-    if (this.taskCount >= Workday.MAX_TASKS_PER_DAY) {
+    if (!this.canAddTask) {
       throw new Error('Maximum number of tasks reached for the day.');
     }
 
-    this.props.taskList.push(Workday.getEmptyTask());
-    return this;
+    const newTaskList = this.props.taskList.slice();
+    newTaskList.push(Workday.getEmptyTask());
+
+    const newProps: WorkdayProps = {
+      ...this.props,
+      taskList: newTaskList,
+    };
+
+    return new Workday(newProps, this._id);
   }
 
   updateTask(index: number, updatedTask: Task): Workday {
@@ -122,8 +137,15 @@ export class Workday extends Entity<WorkdayProps> {
       throw new Error(`Cannot update task at index ${index}.`);
     }
 
-    this.props.taskList[index] = updatedTask;
-    return this;
+    const newTaskList = this.props.taskList.slice();
+    newTaskList[index] = updatedTask;
+
+    const newProps: WorkdayProps = {
+      ...this.props,
+      taskList: newTaskList,
+    };
+
+    return new Workday(newProps, this._id);
   }
 
   removeTask(index: number): Workday {
@@ -131,10 +153,18 @@ export class Workday extends Entity<WorkdayProps> {
       throw new Error(`Cannot remove task at index ${index}.`);
     }
 
-    this.props.taskList.splice(index, 1);
-    return this;
+    const newTaskList = this.props.taskList.slice();
+    newTaskList.splice(index, 1);
+
+    const newProps: WorkdayProps = {
+      ...this.props,
+      taskList: newTaskList,
+    };
+
+    return new Workday(newProps, this._id);
   }
 
+  // TODO: tick() should do an immutable operation and return a new Workday instance.
   tick(): Workday {
     const task = getActiveTask(this.taskList);
     const taskIndex = getActiveTaskIndex(this.taskList);
