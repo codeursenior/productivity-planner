@@ -17,6 +17,7 @@ interface WorkdayProps {
 export class Workday extends Entity<WorkdayProps> {
   static readonly MAX_POMODORO_DURATION_IN_SEC = 5; // TODO: 25 minutes.
   static readonly MAX_TASKS_PER_DAY = 6;
+  /** @remarks Specific override because Workday ID is a date, generated on frontend side. */
   override readonly _id;
 
   private constructor(props: WorkdayProps, date: string) {
