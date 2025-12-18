@@ -1,41 +1,41 @@
 <div class="container my-5">
-  <pre>{{ store.taskList() | json }}</pre>
+  <pre>{{ workday() | json }}</pre>
   <div class="row align-items-center mb-4">
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
       <h6 class="mb-2">Working Day</h6>
-      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)"
-        [disabled]="store.isExecutionMode() || store.isWorkdayCompleted()" />
-      @if(store.isExecutionMode()) {
+      <input type="date" class="form-control" [value]="workday().date" (change)="updateDate($event)"
+        [disabled]="workday().isExecutionMode || workday().isWorkdayCompleted" />
+      @if(workday().isExecutionMode) {
       <div class="d-flex flex-column align-items-center mt-2">
         <div class="progress w-100" data-testid="workday-progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-            [style.width.%]="store.pomodoroProgress()" aria-valuenow="{{store.pomodoroProgress()}}" aria-valuemin="0"
+            [style.width.%]="pomodoroProgress()" aria-valuenow="{{ pomodoroProgress() }}" aria-valuemin="0"
             aria-valuemax="100">
-            {{store.pomodoroProgress()}}%
+            {{ pomodoroProgress() }}%
           </div>
         </div>
-        <p class="small text-muted mt-2 text-center w-100">{{ store.progress() }} seconds have passed.</p>
+        <p class="small text-muted mt-2 text-center w-100">{{ progress() }} seconds have passed.</p>
       </div>
       }
     </div>
-    @if(store.hasTaskPlanned() && store.isEditMode() && !store.isWorkdayCompleted()) {
+    @if(workday().hasTaskPlanned && workday().isEditMode && !workday().isWorkdayCompleted) {
     <div class="col-md-4 text-end mt-3 mt-md-0" data-testid="start-workday-button">
-      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" (click)="store.startWorkday()">
+      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" (click)="startWorkday()">
         Start the work day
       </button>
     </div>
     }
   </div>
 
-  @if(store.hasNoTaskPlanned()) {
+  @if(workday().hasNoTaskPlanned) {
   <div class="text-center my-5" data-testid="inbox-zero-placeholder">
     <img src="images/productivity-planner-inbox-zero.gif" alt="Inbox zero" class="img-fluid mx-auto" />
     <p class="mt-3 text-muted">Aucune tâche prévue pour aujourd'hui !</p>
   </div>
   }
 
-  @for(task of store.taskList(); track $index) {
+  @for(task of workday().taskList; track $index) {
   @if($index === 0) {
   <h6 class="mb-3 text-muted">Most important task</h6>
   }
@@ -46,18 +46,18 @@
   <h6 class="mb-3 text-muted">Tâches restantes</h6>
   }
 
-  @if(store.isEditMode() && !store.isWorkdayCompleted() && !store.isTaskCompleted(task)) {
-  <app-task-field class="p-3 mb-3" [task]="task" [index]="$index" (taskUpdated)="store.updateTask($index, $event)"
-    (taskRemoved)="store.removeTask($index)" />
+  @if(workday().isEditMode && !workday().isWorkdayCompleted && !workday().isTaskCompleted(task)) {
+  <app-task-field class="p-3 mb-3" [task]="task" [index]="$index" (taskUpdated)="updateTask($index, $event)"
+    (taskRemoved)="removeTask($index)" />
   }
-  @if(store.isExecutionMode() || store.isWorkdayCompleted() || store.isTaskCompleted(task)) {
+  @if(workday().isExecutionMode || workday().isWorkdayCompleted || workday().isTaskCompleted(task)) {
   <app-task-readonly [task]="task" [index]="$index" />
   }
   }
 
   <div class="text-center">
-    @if(store.isButtonDisplayed()) {
-    <button data-testid="add-task-button" class="btn btn-link text-muted" (click)="store.addTask()">Ajouter une
+    @if(workday().canAddTask) {
+    <button data-testid="add-task-button" class="btn btn-link text-muted" (click)="addTask()">Ajouter une
       tâche</button>
     }
   </div>
