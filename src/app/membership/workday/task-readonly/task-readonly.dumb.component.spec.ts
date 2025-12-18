@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Workday } from '@app/core/entity/workday';
 import { TaskReadonlyDumbComponent } from './task-readonly.dumb.component';
-import { getEmptyTask } from '../workday.page.store';
 
 describe('TaskReadonlyDumbComponent', () => {
   let component: TaskReadonlyDumbComponent;
@@ -15,7 +14,7 @@ describe('TaskReadonlyDumbComponent', () => {
     fixture = TestBed.createComponent(TaskReadonlyDumbComponent);
     component = fixture.componentInstance;
 
-    fixture.componentRef.setInput('task', getEmptyTask());
+    fixture.componentRef.setInput('task', Workday.getEmptyTask());
     fixture.componentRef.setInput('index', 0);
     fixture.detectChanges();
   });

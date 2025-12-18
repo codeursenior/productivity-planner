@@ -7,8 +7,7 @@ export interface Task {
   statusEmoji: string;
 }
 
-// TODO: 10 secs for test only
-export const MAXIMUM_POMODORO_DURATION = 5; // 25 minutes
+export const MAXIMUM_POMODORO_DURATION = 5;
 
 export type TaskList = Task[];
 export type TaskType = 'Hit the target' | 'Get things done';
